@@ -1,6 +1,7 @@
 package components;
 
 import utils.ComponentUtil;
+import utils.ExpressionUtil;
 
 import javax.script.ScriptEngineManager;
 import javax.swing.*;
@@ -26,11 +27,11 @@ public class CalDisplay extends JFrame {
     /**
      * 用于存放表达式的 StringBuilder
      */
-    public static StringBuilder stringBuilder=new StringBuilder();
+    public static StringBuilder stringBuilder = new StringBuilder();
 
     //关闭窗口，最小化窗口
-    JButton btnClose=new JButton();
-    JButton btnMin=new JButton();
+    JButton btnClose = new JButton();
+    JButton btnMin = new JButton();
 
     //数字键0-9以及十六进制下的A,B,C,D,E,F
     List<JButton> numBtn = new ArrayList<>();
@@ -136,28 +137,10 @@ public class CalDisplay extends JFrame {
         //将窗口设置到正中心
         setLocationRelativeTo(null);
 
-        //将数字键0-9加入列表
-        numBtn.add(btn0);
-        numBtn.add(btn1);
-        numBtn.add(btn2);
-        numBtn.add(btn3);
-        numBtn.add(btn4);
-        numBtn.add(btn5);
-        numBtn.add(btn6);
-        numBtn.add(btn7);
-        numBtn.add(btn8);
-        numBtn.add(btn9);
-        numBtn.add(btnA);
-        numBtn.add(btnB);
-        numBtn.add(btnC);
-        numBtn.add(btnD);
-        numBtn.add(btnE);
-        numBtn.add(btnF);
-
         //设置组件的位置和大小
         //最小化按钮和关闭按钮
-        btnMin.setBounds(420,0,40,30);
-        btnClose.setBounds(460,0,40,30);
+        btnMin.setBounds(420, 0, 40, 30);
+        btnClose.setBounds(460, 0, 40, 30);
         //显示器
         result_disPlay.setBounds(20, 40, 460, 150);
         result_disPlay.setFont(new Font("Microsoft YaHei UI Bold", Font.BOLD, 40));
@@ -168,10 +151,10 @@ public class CalDisplay extends JFrame {
         Design.setBounds(80, 220, 200, 50);
         Design.setForeground(Color.WHITE);
         //第二行
-        btnDEC.setBounds(114, 380-100, 84, 40);
-        btnHEX.setBounds(208, 380-100, 84, 40);
-        btnLeftPare.setBounds(302, 380-100, 84, 40);
-        btnRightPare.setBounds(396, 380-100, 84, 40);
+        btnDEC.setBounds(114, 380 - 100, 84, 40);
+        btnHEX.setBounds(208, 380 - 100, 84, 40);
+        btnLeftPare.setBounds(302, 380 - 100, 84, 40);
+        btnRightPare.setBounds(396, 380 - 100, 84, 40);
         //第三行
         btnShift.setBounds(20, 460 - 100, 84, 40);
         btnD.setBounds(114, 460 - 100, 84, 40);
@@ -213,21 +196,21 @@ public class CalDisplay extends JFrame {
         jLabel2.setBounds(260, 195, 40, 20);
         //jLabel3.setBounds(320, 195, 40, 20);
         //数字键对应的二进制数
-        jLabel4.setBounds(btn1.getX()+28,btn1.getY()-22,40,20);
-        jLabel5.setBounds(btn2.getX()+28,btn2.getY()-22,40,20);
-        jLabel6.setBounds(btn3.getX()+28,btn3.getY()-22,40,20);
-        jLabel7.setBounds(btn4.getX()+28,btn4.getY()-22,40,20);
-        jLabel8.setBounds(btn5.getX()+28,btn5.getY()-22,40,20);
-        jLabel9.setBounds(btn6.getX()+28,btn6.getY()-22,40,20);
-        jLabel10.setBounds(btn7.getX()+28,btn7.getY()-22,40,20);
-        jLabel11.setBounds(btn8.getX()+28,btn8.getY()-22,40,20);
-        jLabel12.setBounds(btn9.getX()+28,btn9.getY()-22,40,20);
-        jLabel13.setBounds(btnA.getX()+28,btnA.getY()-22,40,20);
-        jLabel14.setBounds(btnB.getX()+28,btnB.getY()-22,40,20);
-        jLabel15.setBounds(btnC.getX()+28,btnC.getY()-22,40,20);
-        jLabel16.setBounds(btnD.getX()+28,btnD.getY()-22,40,20);
-        jLabel17.setBounds(btnE.getX()+28,btnE.getY()-22,40,20);
-        jLabel18.setBounds(btnF.getX()+28,btnF.getY()-22,40,20);
+        jLabel4.setBounds(btn1.getX() + 28, btn1.getY() - 22, 40, 20);
+        jLabel5.setBounds(btn2.getX() + 28, btn2.getY() - 22, 40, 20);
+        jLabel6.setBounds(btn3.getX() + 28, btn3.getY() - 22, 40, 20);
+        jLabel7.setBounds(btn4.getX() + 28, btn4.getY() - 22, 40, 20);
+        jLabel8.setBounds(btn5.getX() + 28, btn5.getY() - 22, 40, 20);
+        jLabel9.setBounds(btn6.getX() + 28, btn6.getY() - 22, 40, 20);
+        jLabel10.setBounds(btn7.getX() + 28, btn7.getY() - 22, 40, 20);
+        jLabel11.setBounds(btn8.getX() + 28, btn8.getY() - 22, 40, 20);
+        jLabel12.setBounds(btn9.getX() + 28, btn9.getY() - 22, 40, 20);
+        jLabel13.setBounds(btnA.getX() + 28, btnA.getY() - 22, 40, 20);
+        jLabel14.setBounds(btnB.getX() + 28, btnB.getY() - 22, 40, 20);
+        jLabel15.setBounds(btnC.getX() + 28, btnC.getY() - 22, 40, 20);
+        jLabel16.setBounds(btnD.getX() + 28, btnD.getY() - 22, 40, 20);
+        jLabel17.setBounds(btnE.getX() + 28, btnE.getY() - 22, 40, 20);
+        jLabel18.setBounds(btnF.getX() + 28, btnF.getY() - 22, 40, 20);
         jLabel4.setForeground(Color.WHITE);
         jLabel5.setForeground(Color.WHITE);
         jLabel6.setForeground(Color.WHITE);
@@ -287,12 +270,92 @@ public class CalDisplay extends JFrame {
         //设置背景颜色
         container.setBackground(new Color(30, 33, 32));
 
+        initListener();
+
     }
 
+    /**
+     * 初始化监听器
+     */
+    public void initListener() {
+        /**
+         * 等于
+         */
+        btnEquals.addActionListener(e -> {
+            String exp = stringBuilder.toString();
+            stringBuilder.delete(0, stringBuilder.length());
+            Double expression = ExpressionUtil.getExpression(exp);
+            stringBuilder.append(expression);
+            result_disPlay.setText(expression.toString());
+        });
+
+        /**
+         * CE和C （清除）
+         */
+        btnCE.addActionListener(e -> {
+            if (stringBuilder.length() == 0) {
+                return;
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            result_disPlay.setText(stringBuilder.toString());
+        });
+        btnClear.addActionListener(e -> {
+            if (stringBuilder.length() == 0) {
+                return;
+            }
+            stringBuilder.delete(0, stringBuilder.length());
+            result_disPlay.setText(stringBuilder.toString());
+        });
+
+        /**
+         * 位运算
+         */
+        btnOR.addActionListener(e -> {
+            stringBuilder.append("|");
+            result_disPlay.setText(stringBuilder.toString());
+        });
+        btnAND.addActionListener(e -> {
+            stringBuilder.append("&");
+            result_disPlay.setText(stringBuilder.toString());
+        });
+        btnXOR.addActionListener(e -> {
+            stringBuilder.append("^");
+            result_disPlay.setText(stringBuilder.toString());
+        });
+
+        /**
+         * 进制转换
+         */
+        btnDEC.addActionListener(e -> {
+            String s = stringBuilder.toString();
+            stringBuilder.delete(0, stringBuilder.length());
+            stringBuilder.append(Integer.parseInt(s, 16));
+            result_disPlay.setText(stringBuilder.toString());
+        });
+        btnHEX.addActionListener(e -> {
+
+        });
+
+        /**
+         * 码制转换
+         */
+        btnInverse.addActionListener(e -> {
+//            String s = stringBuilder.toString();
+//            Integer i = 0;
+//            try {
+//                i = Integer.valueOf(s);
+//                stringBuilder.delete(0, stringBuilder.length());
+//            } catch (NumberFormatException ex) {
+//                result_disPlay.setText("请输入正确的数值");
+//            }
+//            stringBuilder.append(i);
+//            result_disPlay.setText(stringBuilder.toString());
+        });
+    }
 
     //设置0-F的背景颜色
-    public void setNumColor(){
-        for (Iterator<JButton> it = numBtn.iterator(); it.hasNext();){
+    public void setNumColor() {
+        for (Iterator<JButton> it = numBtn.iterator(); it.hasNext(); ) {
             it.next().setBackground(Color.WHITE);
         }
     }
@@ -305,38 +368,41 @@ public class CalDisplay extends JFrame {
             result_disPlay.setText(stringBuilder.toString());
         }
     }
+
+    class MyDefaultMetalTheme extends DefaultMetalTheme {
+        public ColorUIResource getWindowTitleInactiveBackground() {
+            return new ColorUIResource(new Color(30, 33, 32));
+        }
+
+        public ColorUIResource getWindowTitleBackground() {
+            return new ColorUIResource(new Color(30, 33, 32));
+        }
+
+        public ColorUIResource getPrimaryControlHighlight() {
+            return new ColorUIResource(new Color(30, 33, 32));
+        }
+
+        public ColorUIResource getPrimaryControlDarkShadow() {
+            return new ColorUIResource(new Color(30, 33, 32));
+        }
+
+        public ColorUIResource getPrimaryControl() {
+            return new ColorUIResource(new Color(30, 33, 32));
+        }
+
+        public ColorUIResource getControlHighlight() {
+            return new ColorUIResource(new Color(30, 33, 32));
+        }
+
+        public ColorUIResource getControlDarkShadow() {
+            return new ColorUIResource(new Color(30, 33, 32));
+        }
+
+        public ColorUIResource getControl() {
+            return new ColorUIResource(new Color(30, 33, 32));
+        }
+    }
+
 }
-class MyDefaultMetalTheme extends DefaultMetalTheme {
-    public ColorUIResource getWindowTitleInactiveBackground() {
-        return new ColorUIResource(new Color(30, 33, 32));
-    }
 
-    public ColorUIResource getWindowTitleBackground() {
-        return new ColorUIResource(new Color(30, 33, 32));
-    }
-
-    public ColorUIResource getPrimaryControlHighlight() {
-        return new ColorUIResource(new Color(30, 33, 32));
-    }
-
-    public ColorUIResource getPrimaryControlDarkShadow() {
-        return new ColorUIResource(new Color(30, 33, 32));
-    }
-
-    public ColorUIResource getPrimaryControl() {
-        return new ColorUIResource(new Color(30, 33, 32));
-    }
-
-    public ColorUIResource getControlHighlight() {
-        return new ColorUIResource(new Color(30, 33, 32));
-    }
-
-    public ColorUIResource getControlDarkShadow() {
-        return new ColorUIResource(new Color(30, 33, 32));
-    }
-
-    public ColorUIResource getControl() {
-        return new ColorUIResource(new Color(30, 33, 32));
-    }
-}
 
