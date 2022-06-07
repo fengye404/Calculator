@@ -12,8 +12,9 @@ import java.util.Enumeration;
  **/
 public class Main {
     public static void main(String[] args) {
-        initGlobalFont(new Font("Microsoft YaHei UI Bold",0,15));  //统一设置字体
+        initGlobalFont(new Font("Microsoft YaHei UI Bold", 0, 15));  //统一设置字体
         try {
+            CalDisplay.stringBuilderThreadLocal.set(new StringBuilder());
             CalDisplay display = new CalDisplay();
         } catch (IOException e) {
             e.printStackTrace();
@@ -24,7 +25,7 @@ public class Main {
 
     private static void initGlobalFont(Font font) {
         FontUIResource fontRes = new FontUIResource(font);
-        for (Enumeration<Object> keys = UIManager.getDefaults().keys(); keys.hasMoreElements();) {
+        for (Enumeration<Object> keys = UIManager.getDefaults().keys(); keys.hasMoreElements(); ) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);
             if (value instanceof FontUIResource) {

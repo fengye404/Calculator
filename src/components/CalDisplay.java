@@ -1,5 +1,9 @@
 package components;
 
+import components.listener.OperationButtonListener;
+import utils.ComponentUtil;
+
+import javax.script.ScriptEngineManager;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
@@ -14,95 +18,92 @@ import java.util.List;
  * @create: 2022/6/7 13:35
  **/
 public class CalDisplay extends JFrame {
+    /**
+     * 用于存放表达式的 StringBuilder
+     */
+    public static ThreadLocal<StringBuilder> stringBuilderThreadLocal = new ThreadLocal<>();
+
     //数字键0-9以及十六进制下的A,B,C,D,E,F
     List<JButton> numBtn = new ArrayList<>();
-    JButton btn0 = new JButton("0");
-    JButton btn1 = new JButton("1");
-    JButton btn2 = new JButton("2");
-    JButton btn3 = new JButton("3");
-    JButton btn4 = new JButton("4");
-    JButton btn5 = new JButton("5");
-    JButton btn6 = new JButton("6");
-    JButton btn7 = new JButton("7");
-    JButton btn8 = new JButton("8");
-    JButton btn9 = new JButton("9");
-    JButton btnA = new JButton("A");
-    JButton btnB = new JButton("B");
-    JButton btnC = new JButton("C");
-    JButton btnD = new JButton("D");
-    JButton btnE = new JButton("E");
-    JButton btnF = new JButton("F");
+    JButton btn0 = ComponentUtil.addButton("0", new OperationButtonListener(), this);
+    JButton btn1 = ComponentUtil.addButton("1", new OperationButtonListener(), this);
+    JButton btn2 = ComponentUtil.addButton("2", new OperationButtonListener(), this);
+    JButton btn3 = ComponentUtil.addButton("3", new OperationButtonListener(), this);
+    JButton btn4 = ComponentUtil.addButton("4", new OperationButtonListener(), this);
+    JButton btn5 = ComponentUtil.addButton("5", new OperationButtonListener(), this);
+    JButton btn6 = ComponentUtil.addButton("6", new OperationButtonListener(), this);
+    JButton btn7 = ComponentUtil.addButton("7", new OperationButtonListener(), this);
+    JButton btn8 = ComponentUtil.addButton("8", new OperationButtonListener(), this);
+    JButton btn9 = ComponentUtil.addButton("9", new OperationButtonListener(), this);
+    JButton btnA = ComponentUtil.addButton("A", new OperationButtonListener(), this);
+    JButton btnB = ComponentUtil.addButton("B", new OperationButtonListener(), this);
+    JButton btnC = ComponentUtil.addButton("C", new OperationButtonListener(), this);
+    JButton btnD = ComponentUtil.addButton("D", new OperationButtonListener(), this);
+    JButton btnE = ComponentUtil.addButton("E", new OperationButtonListener(), this);
+    JButton btnF = ComponentUtil.addButton("F", new OperationButtonListener(), this);
 
     //普通的四则运算按键+ - * /
-    JButton btnAdd = new JButton("＋");       //加法
-    JButton btnSub = new JButton("－");       //减法
-    JButton btnMul = new JButton("×");        //乘法
-    JButton btnDiv = new JButton("÷");        //除法
+    JButton btnAdd = ComponentUtil.addButton("+", new OperationButtonListener(), this);       //加法
+    JButton btnSub = ComponentUtil.addButton("-", new OperationButtonListener(), this);       //减法
+    JButton btnMul = ComponentUtil.addButton("*", new OperationButtonListener(), this);        //乘法
+    JButton btnDiv = ComponentUtil.addButton("/", new OperationButtonListener(), this);        //除法
+
+    //左右括号，小数点
+    JButton btnLeftPare = ComponentUtil.addButton("(", new OperationButtonListener(), this);     //左括号
+    JButton btnRightPare = ComponentUtil.addButton(")", new OperationButtonListener(), this);    //右括号
+    JButton btnPoint = ComponentUtil.addButton(".", new OperationButtonListener(), this);         //小数点
 
     //三种进制
-    JButton btnDEC = new JButton("DEC");       //十进制
-    JButton btnHEX = new JButton("HEX");       //十六进制
-    JButton btnOCT = new JButton("OCT");       //八进制
+    JButton btnDEC = ComponentUtil.addButton("DEC", null, this);       //十进制
+    JButton btnHEX = ComponentUtil.addButton("HEX", null, this);       //十六进制
+    JButton btnOCT = ComponentUtil.addButton("OCT", null, this);       //八进制
 
     //三种按位运算
-    JButton btnOR = new JButton("OR");         //位与运算
-    JButton btnAND = new JButton("AND");       //位或运算
-    JButton btnXOR = new JButton("XOR");       //位非运算
+    JButton btnOR = ComponentUtil.addButton("OR", null, this);         //位与运算
+    JButton btnAND = ComponentUtil.addButton("AND", null, this);       //位或运算
+    JButton btnXOR = ComponentUtil.addButton("XOR", null, this);       //位非运算
 
     //三种码制操作
-    JButton btnInverse = new JButton("1'sC");       //反码
-    JButton btnComplement = new JButton("2'sC");    //补码
-    JButton btnShift = new JButton("SHF");          //移码
+    JButton btnInverse = ComponentUtil.addButton("1'sC", null, this);       //反码
+    JButton btnComplement = ComponentUtil.addButton("2'sC", null, this);    //补码
+    JButton btnShift = ComponentUtil.addButton("SHF", null, this);          //移码
 
     //CE键和C键
-    JButton btnCE = new JButton("CE");          //清除输入
-    JButton btnClear = new JButton("Clear");        //清除显示器内容
+    JButton btnCE = ComponentUtil.addButton("CE", null, this);          //清除输入
+    JButton btnClear = ComponentUtil.addButton("Clear", null, this);        //清除显示器内容
 
-    //开关计算器  去掉
-    //JButton btnOFF = new JButton("OFF");       //开机
-    //JButton btnON = new JButton("ON/C");       //关机
-
-    //左右括号
-    JButton btnLeftPare = new JButton("(");     //左括号
-    JButton btnRightPare = new JButton(")");    //右括号
-
-    //等号，小数点
-    JButton btnEquals = new JButton("=");        //等号
-    JButton btnPoint = new JButton(".");         //小数点
+    //等号
+    JButton btnEquals = ComponentUtil.addButton("=", null, this);        //等号
 
     //显示器
-    JTextField result_disPlay = new JTextField();    //显示结果
-    //字体
-    Font font=new Font("Microsoft YaHei UI Bold",Font.BOLD,40);
+    JTextField result_disPlay = ComponentUtil.addTextFiled(null, this);    //显示结果
 
     //显示进制
-    JLabel jLabel1=new JLabel("DEC");   //十进制
-    JLabel jLabel2=new JLabel("HEX");   //十六进制
-    JLabel jLabel3=new JLabel("OCT");   //八进制
+    JLabel jLabel1 = ComponentUtil.addLabel("DEC", this);   //十进制
+    JLabel jLabel2 = ComponentUtil.addLabel("HEX", this);   //十六进制
+    JLabel jLabel3 = ComponentUtil.addLabel("OCT", this);   //八进制
 
     //数字键对应的二进制数
-    JLabel jLabel4=new JLabel("0001");
-    JLabel jLabel5=new JLabel("0010");
-    JLabel jLabel6=new JLabel("0011");
-    JLabel jLabel7=new JLabel("0100");
-    JLabel jLabel8=new JLabel("0101");
-    JLabel jLabel9=new JLabel("0110");
-    JLabel jLabel10=new JLabel("0111");
-    JLabel jLabel11=new JLabel("1000");
-    JLabel jLabel12=new JLabel("1001");
-    JLabel jLabel13=new JLabel("1010");
-    JLabel jLabel14=new JLabel("1011");
-    JLabel jLabel15=new JLabel("1100");
-    JLabel jLabel16=new JLabel("1101");
-    JLabel jLabel17=new JLabel("1110");
-    JLabel jLabel18=new JLabel("1111");
-
-
+    JLabel jLabel4 = ComponentUtil.addLabel("0001", this);
+    JLabel jLabel5 = ComponentUtil.addLabel("0010", this);
+    JLabel jLabel6 = ComponentUtil.addLabel("0011", this);
+    JLabel jLabel7 = ComponentUtil.addLabel("0100", this);
+    JLabel jLabel8 = ComponentUtil.addLabel("0101", this);
+    JLabel jLabel9 = ComponentUtil.addLabel("0110", this);
+    JLabel jLabel10 = ComponentUtil.addLabel("0111", this);
+    JLabel jLabel11 = ComponentUtil.addLabel("1000", this);
+    JLabel jLabel12 = ComponentUtil.addLabel("1001", this);
+    JLabel jLabel13 = ComponentUtil.addLabel("1010", this);
+    JLabel jLabel14 = ComponentUtil.addLabel("1011", this);
+    JLabel jLabel15 = ComponentUtil.addLabel("1100", this);
+    JLabel jLabel16 = ComponentUtil.addLabel("1101", this);
+    JLabel jLabel17 = ComponentUtil.addLabel("1110", this);
+    JLabel jLabel18 = ComponentUtil.addLabel("1111", this);
 
     //美化标签
-    JLabel Design=new JLabel("Design by 109");
+    JLabel Design = ComponentUtil.addLabel("Design by 109", this);
 
-    public CalDisplay() throws HeadlessException,IOException,FontFormatException {
+    public CalDisplay() throws HeadlessException, IOException, FontFormatException {
         //设置面板大小
         setBounds(100, 100, 520, 900);
         setResizable(false);
@@ -110,165 +111,76 @@ public class CalDisplay extends JFrame {
         //设置布局方式
         setLayout(null);    //自定义布局
 
-        //将数字键0-9加入列表
-        numBtn.add(btn0);
-        numBtn.add(btn1);
-        numBtn.add(btn2);
-        numBtn.add(btn3);
-        numBtn.add(btn4);
-        numBtn.add(btn5);
-        numBtn.add(btn6);
-        numBtn.add(btn7);
-        numBtn.add(btn8);
-        numBtn.add(btn9);
-        numBtn.add(btnA);
-        numBtn.add(btnB);
-        numBtn.add(btnC);
-        numBtn.add(btnD);
-        numBtn.add(btnE);
-        numBtn.add(btnF);
-
         //设置组件的位置和大小
         //显示器
         result_disPlay.setBounds(20, 20, 460, 150);
-        result_disPlay.setFont(font);
+        result_disPlay.setFont(new Font("Microsoft YaHei UI Bold", Font.BOLD, 40));
         result_disPlay.setHorizontalAlignment(JTextField.RIGHT);
 
         //装饰
-        Design.setFont(new Font("Century Schoolbook",Font.ITALIC+Font.BOLD,20));
-        Design.setBounds(80,220,200,50);
-        //第一行
-        //btnOFF.setBounds(302, 300, 84, 40);
-        //btnON.setBounds(396, 300, 84, 40);
+        Design.setFont(new Font("Century Schoolbook", Font.ITALIC + Font.BOLD, 20));
+        Design.setBounds(80, 220, 200, 50);
         //第二行
-        btnDEC.setBounds(20, 380-100, 84, 40);
-        btnHEX.setBounds(114, 380-100, 84, 40);
-        btnOCT.setBounds(208, 380-100, 84, 40);
-        btnLeftPare.setBounds(302, 380-100, 84, 40);
-        btnRightPare.setBounds(396, 380-100, 84, 40);
+        btnDEC.setBounds(20, 380 - 100, 84, 40);
+        btnHEX.setBounds(114, 380 - 100, 84, 40);
+        btnOCT.setBounds(208, 380 - 100, 84, 40);
+        btnLeftPare.setBounds(302, 380 - 100, 84, 40);
+        btnRightPare.setBounds(396, 380 - 100, 84, 40);
         //第三行
-        btnShift.setBounds(20, 460-100, 84, 40);
-        btnD.setBounds(114, 460-100, 84, 40);
-        btnE.setBounds(208, 460-100, 84, 40);
-        btnF.setBounds(302, 460-100, 84, 40);
-        btnClear.setBounds(396,460-100,84,40);
+        btnShift.setBounds(20, 460 - 100, 84, 40);
+        btnD.setBounds(114, 460 - 100, 84, 40);
+        btnE.setBounds(208, 460 - 100, 84, 40);
+        btnF.setBounds(302, 460 - 100, 84, 40);
+        btnClear.setBounds(396, 460 - 100, 84, 40);
         //第四行
-        btnInverse.setBounds(20, 540-100, 84, 40);
-        btnA.setBounds(114, 540-100, 84, 40);
-        btnB.setBounds(208, 540-100, 84, 40);
-        btnC.setBounds(302, 540-100, 84, 40);
-        btnDiv.setBounds(396, 540-100, 84, 40);
+        btnInverse.setBounds(20, 540 - 100, 84, 40);
+        btnA.setBounds(114, 540 - 100, 84, 40);
+        btnB.setBounds(208, 540 - 100, 84, 40);
+        btnC.setBounds(302, 540 - 100, 84, 40);
+        btnDiv.setBounds(396, 540 - 100, 84, 40);
         //第五行
-        btnOR.setBounds(20, 620-100, 84, 40);
-        btn7.setBounds(114, 620-100, 84, 40);
-        btn8.setBounds(208, 620-100, 84, 40);
-        btn9.setBounds(302, 620-100, 84, 40);
-        btnMul.setBounds(396, 620-100, 84, 40);
+        btnOR.setBounds(20, 620 - 100, 84, 40);
+        btn7.setBounds(114, 620 - 100, 84, 40);
+        btn8.setBounds(208, 620 - 100, 84, 40);
+        btn9.setBounds(302, 620 - 100, 84, 40);
+        btnMul.setBounds(396, 620 - 100, 84, 40);
         //第六行
-        btnAND.setBounds(20, 700-100, 84, 40);
-        btn4.setBounds(114, 700-100, 84, 40);
-        btn5.setBounds(208, 700-100, 84, 40);
-        btn6.setBounds(302, 700-100, 84, 40);
-        btnSub.setBounds(396, 700-100, 84, 40);
+        btnAND.setBounds(20, 700 - 100, 84, 40);
+        btn4.setBounds(114, 700 - 100, 84, 40);
+        btn5.setBounds(208, 700 - 100, 84, 40);
+        btn6.setBounds(302, 700 - 100, 84, 40);
+        btnSub.setBounds(396, 700 - 100, 84, 40);
         //第七行
-        btnXOR.setBounds(20, 780-100, 84, 40);
-        btn1.setBounds(114, 780-100, 84, 40);
-        btn2.setBounds(208, 780-100, 84, 40);
-        btn3.setBounds(302, 780-100, 84, 40);
-        btnAdd.setBounds(396, 780-100, 84, 40);
+        btnXOR.setBounds(20, 780 - 100, 84, 40);
+        btn1.setBounds(114, 780 - 100, 84, 40);
+        btn2.setBounds(208, 780 - 100, 84, 40);
+        btn3.setBounds(302, 780 - 100, 84, 40);
+        btnAdd.setBounds(396, 780 - 100, 84, 40);
         //第八行
-        btnCE.setBounds(20, 860-100, 84, 40);
-        btn0.setBounds(114, 860-100, 84, 40);
-        btnPoint.setBounds(208, 860-100, 84, 40);
-        btnComplement.setBounds(302, 860-100, 84, 40);
-        btnEquals.setBounds(396, 860-100, 84, 40);
+        btnCE.setBounds(20, 860 - 100, 84, 40);
+        btn0.setBounds(114, 860 - 100, 84, 40);
+        btnPoint.setBounds(208, 860 - 100, 84, 40);
+        btnComplement.setBounds(302, 860 - 100, 84, 40);
+        btnEquals.setBounds(396, 860 - 100, 84, 40);
         //显示进制
-        jLabel1.setBounds(200,175,40,20);
-        jLabel2.setBounds(260,175,40,20);
-        jLabel3.setBounds(320,175,40,20);
+        jLabel1.setBounds(200, 175, 40, 20);
+        jLabel2.setBounds(260, 175, 40, 20);
+        jLabel3.setBounds(320, 175, 40, 20);
         //数字键对应的二进制数
-        jLabel4.setBounds(btn1.getX()+28,btn1.getY()-22,40,20);
-        jLabel5.setBounds(btn2.getX()+28,btn2.getY()-22,40,20);
-        jLabel6.setBounds(btn3.getX()+28,btn3.getY()-22,40,20);
-        jLabel7.setBounds(btn4.getX()+28,btn4.getY()-22,40,20);
-        jLabel8.setBounds(btn5.getX()+28,btn5.getY()-22,40,20);
-        jLabel9.setBounds(btn6.getX()+28,btn6.getY()-22,40,20);
-        jLabel10.setBounds(btn7.getX()+28,btn7.getY()-22,40,20);
-        jLabel11.setBounds(btn8.getX()+28,btn8.getY()-22,40,20);
-        jLabel12.setBounds(btn9.getX()+28,btn9.getY()-22,40,20);
-        jLabel13.setBounds(btnA.getX()+28,btnA.getY()-22,40,20);
-        jLabel14.setBounds(btnB.getX()+28,btnB.getY()-22,40,20);
-        jLabel15.setBounds(btnC.getX()+28,btnC.getY()-22,40,20);
-        jLabel16.setBounds(btnD.getX()+28,btnD.getY()-22,40,20);
-        jLabel17.setBounds(btnE.getX()+28,btnE.getY()-22,40,20);
-        jLabel18.setBounds(btnF.getX()+28,btnF.getY()-22,40,20);
-        Container container = new Container();
-        add(result_disPlay);
-        add(btnDEC);
-        add(btnHEX);
-        add(btnOCT);
-        //add(btnOFF);
-        //add(btnON);
-        add(btnLeftPare);
-        add(btnRightPare);
-        add(btnShift);
-        add(btnD);
-        add(btnE);
-        add(btnF);
-        //加一个装饰
-        add(btnClear);
-        add(btnInverse);
-        add(btnA);
-        add(btnB);
-        add(btnC);
-        add(btnDiv);
-        add(btnOR);
-        add(btn7);
-        add(btn8);
-        add(btn9);
-        add(btnMul);
-        add(btnAND);
-        add(btn4);
-        add(btn5);
-        add(btn6);
-        add(btnSub);
-        add(btnXOR);
-        add(btn1);
-        add(btn2);
-        add(btn3);
-        add(btnAdd);
-        add(btnCE);
-        add(btn0);
-        add(btnPoint);
-        add(btnComplement);
-        add(btnEquals);
-        add(jLabel1);
-        add(jLabel2);
-        add(jLabel3);
-        add(jLabel4);
-        add(jLabel5);
-        add(jLabel6);
-        add(jLabel7);
-        add(jLabel8);
-        add(jLabel9);
-        add(jLabel10);
-        add(jLabel11);
-        add(jLabel12);
-        add(jLabel13);
-        add(jLabel14);
-        add(jLabel15);
-        add(jLabel16);
-        add(jLabel17);
-        add(jLabel18);
-        add(Design);
-    }
-
-    //有BUG先废弃
-    public Font loadFont() throws IOException,FontFormatException {
-        String fontFilename = "Technology-Bold.ttf";
-        InputStream is=this.getClass().getResourceAsStream(fontFilename);
-        Font actionJson=Font.createFont(Font.TRUETYPE_FONT,is);
-        Font actionJsonBase=actionJson.deriveFont(Font.BOLD,40);
-        return actionJsonBase;
+        jLabel4.setBounds(btn1.getX() + 28, btn1.getY() - 22, 40, 20);
+        jLabel5.setBounds(btn2.getX() + 28, btn2.getY() - 22, 40, 20);
+        jLabel6.setBounds(btn3.getX() + 28, btn3.getY() - 22, 40, 20);
+        jLabel7.setBounds(btn4.getX() + 28, btn4.getY() - 22, 40, 20);
+        jLabel8.setBounds(btn5.getX() + 28, btn5.getY() - 22, 40, 20);
+        jLabel9.setBounds(btn6.getX() + 28, btn6.getY() - 22, 40, 20);
+        jLabel10.setBounds(btn7.getX() + 28, btn7.getY() - 22, 40, 20);
+        jLabel11.setBounds(btn8.getX() + 28, btn8.getY() - 22, 40, 20);
+        jLabel12.setBounds(btn9.getX() + 28, btn9.getY() - 22, 40, 20);
+        jLabel13.setBounds(btnA.getX() + 28, btnA.getY() - 22, 40, 20);
+        jLabel14.setBounds(btnB.getX() + 28, btnB.getY() - 22, 40, 20);
+        jLabel15.setBounds(btnC.getX() + 28, btnC.getY() - 22, 40, 20);
+        jLabel16.setBounds(btnD.getX() + 28, btnD.getY() - 22, 40, 20);
+        jLabel17.setBounds(btnE.getX() + 28, btnE.getY() - 22, 40, 20);
+        jLabel18.setBounds(btnF.getX() + 28, btnF.getY() - 22, 40, 20);
     }
 }
