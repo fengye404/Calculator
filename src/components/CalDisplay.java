@@ -3,19 +3,16 @@ package components;
 import utils.ComponentUtil;
 import utils.ExpressionUtil;
 
-import javax.script.ScriptEngineManager;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,7 +50,7 @@ public class CalDisplay extends JFrame {
     JButton btnF = ComponentUtil.addButton("F", new OperationButtonListener(), this);
 
     //十六进制输入0X
-    JButton btn0X=ComponentUtil.addButton("0X",new OperationButtonListener(),this);
+    JButton btn0X = ComponentUtil.addButton("0X", new OperationButtonListener(), this);
     //普通的四则运算按键+ - * /
     JButton btnAdd = ComponentUtil.addButton("+", new OperationButtonListener(), this);       //加法
     JButton btnSub = ComponentUtil.addButton("-", new OperationButtonListener(), this);       //减法
@@ -155,7 +152,7 @@ public class CalDisplay extends JFrame {
         Design.setBounds(80, 220, 200, 50);
         Design.setForeground(Color.WHITE);
         //第二行
-        btn0X.setBounds(20,380-100,84,40);
+        btn0X.setBounds(20, 380 - 100, 84, 40);
         btnDEC.setBounds(114, 380 - 100, 84, 40);
         btnHEX.setBounds(208, 380 - 100, 84, 40);
         btnLeftPare.setBounds(302, 380 - 100, 84, 40);
@@ -198,6 +195,7 @@ public class CalDisplay extends JFrame {
         btnEquals.setBounds(396, 860 - 100, 84, 40);
         //显示进制
         jLabel1.setBounds(200, 195, 40, 20);
+        jLabel1.setForeground(new Color(255, 255, 255));
         jLabel2.setBounds(260, 195, 40, 20);
         //jLabel3.setBounds(320, 195, 40, 20);
         //数字键对应的二进制数
@@ -300,6 +298,7 @@ public class CalDisplay extends JFrame {
          */
         btnCE.addActionListener(e -> {
             if (stringBuilder.length() == 0) {
+                result_disPlay.setText("");
                 return;
             }
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
@@ -307,6 +306,7 @@ public class CalDisplay extends JFrame {
         });
         btnClear.addActionListener(e -> {
             if (stringBuilder.length() == 0) {
+                result_disPlay.setText("");
                 return;
             }
             stringBuilder.delete(0, stringBuilder.length());
@@ -335,11 +335,30 @@ public class CalDisplay extends JFrame {
         btnDEC.addActionListener(e -> {
             String s = stringBuilder.toString();
             stringBuilder.delete(0, stringBuilder.length());
-            stringBuilder.append(Integer.parseInt(s, 16));
+            try {
+                if (s.startsWith("0X")) {
+                    s = s.substring(2).toLowerCase();
+                }
+                stringBuilder.append(Integer.parseInt(s, 16));
+            } catch (NumberFormatException ex) {
+                result_disPlay.setText("请输入正确的十六进制数");
+                return;
+            }
             result_disPlay.setText(stringBuilder.toString());
+            changeAdvance(10);
         });
         btnHEX.addActionListener(e -> {
-
+            String s = stringBuilder.toString();
+            stringBuilder.delete(0, stringBuilder.length());
+            try {
+                String hexString = Integer.toHexString(Integer.parseInt(s)).toUpperCase();
+                stringBuilder.append(hexString);
+            } catch (NumberFormatException ex) {
+                result_disPlay.setText("请输入正确的十进制数");
+                return;
+            }
+            result_disPlay.setText(stringBuilder.toString());
+            changeAdvance(16);
         });
 
         /**
@@ -362,12 +381,13 @@ public class CalDisplay extends JFrame {
     //设置0-F的背景颜色
     public void setNumColor() {
         for (Iterator<JButton> it = numBtn.iterator(); it.hasNext(); ) {
-            JButton jButton=it.next();
+            JButton jButton = it.next();
             jButton.setBackground(new Color(255, 255, 255));
-            jButton.setForeground(new Color(0,0,0));
+            jButton.setForeground(new Color(0, 0, 0));
         }
     }
-    public void AddBtnToList(){
+
+    public void AddBtnToList() {
         numBtn.add(btn0);
         numBtn.add(btn1);
         numBtn.add(btn2);
@@ -384,6 +404,19 @@ public class CalDisplay extends JFrame {
         numBtn.add(btnD);
         numBtn.add(btnE);
         numBtn.add(btnF);
+    }
+
+    /**
+     * 切换进制显示
+     */
+    public void changeAdvance(int advance) {
+        if (advance == 10) {
+            jLabel1.setForeground(new Color(255, 255, 255));
+            jLabel2.setForeground(new Color(0, 0, 0));
+        } else if (advance == 16) {
+            jLabel1.setForeground(new Color(0, 0, 0));
+            jLabel2.setForeground(new Color(255, 255, 255));
+        }
     }
 
     public class OperationButtonListener implements ActionListener {
