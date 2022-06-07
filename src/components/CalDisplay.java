@@ -104,7 +104,7 @@ public class CalDisplay extends JFrame {
 
     public CalDisplay() throws HeadlessException,IOException,FontFormatException {
         //设置面板大小
-        setBounds(100, 100, 520, 1000);
+        setBounds(100, 100, 520, 900);
         setResizable(false);
         setVisible(true);
         //设置布局方式
@@ -141,47 +141,47 @@ public class CalDisplay extends JFrame {
         //btnOFF.setBounds(302, 300, 84, 40);
         //btnON.setBounds(396, 300, 84, 40);
         //第二行
-        btnDEC.setBounds(20, 380, 84, 40);
-        btnHEX.setBounds(114, 380, 84, 40);
-        btnOCT.setBounds(208, 380, 84, 40);
-        btnLeftPare.setBounds(302, 380, 84, 40);
-        btnRightPare.setBounds(396, 380, 84, 40);
+        btnDEC.setBounds(20, 380-100, 84, 40);
+        btnHEX.setBounds(114, 380-100, 84, 40);
+        btnOCT.setBounds(208, 380-100, 84, 40);
+        btnLeftPare.setBounds(302, 380-100, 84, 40);
+        btnRightPare.setBounds(396, 380-100, 84, 40);
         //第三行
-        btnShift.setBounds(20, 460, 84, 40);
-        btnD.setBounds(114, 460, 84, 40);
-        btnE.setBounds(208, 460, 84, 40);
-        btnF.setBounds(302, 460, 84, 40);
-        btnClear.setBounds(396,460,84,40);
+        btnShift.setBounds(20, 460-100, 84, 40);
+        btnD.setBounds(114, 460-100, 84, 40);
+        btnE.setBounds(208, 460-100, 84, 40);
+        btnF.setBounds(302, 460-100, 84, 40);
+        btnClear.setBounds(396,460-100,84,40);
         //第四行
-        btnInverse.setBounds(20, 540, 84, 40);
-        btnA.setBounds(114, 540, 84, 40);
-        btnB.setBounds(208, 540, 84, 40);
-        btnC.setBounds(302, 540, 84, 40);
-        btnDiv.setBounds(396, 540, 84, 40);
+        btnInverse.setBounds(20, 540-100, 84, 40);
+        btnA.setBounds(114, 540-100, 84, 40);
+        btnB.setBounds(208, 540-100, 84, 40);
+        btnC.setBounds(302, 540-100, 84, 40);
+        btnDiv.setBounds(396, 540-100, 84, 40);
         //第五行
-        btnOR.setBounds(20, 620, 84, 40);
-        btn7.setBounds(114, 620, 84, 40);
-        btn8.setBounds(208, 620, 84, 40);
-        btn9.setBounds(302, 620, 84, 40);
-        btnMul.setBounds(396, 620, 84, 40);
+        btnOR.setBounds(20, 620-100, 84, 40);
+        btn7.setBounds(114, 620-100, 84, 40);
+        btn8.setBounds(208, 620-100, 84, 40);
+        btn9.setBounds(302, 620-100, 84, 40);
+        btnMul.setBounds(396, 620-100, 84, 40);
         //第六行
-        btnAND.setBounds(20, 700, 84, 40);
-        btn4.setBounds(114, 700, 84, 40);
-        btn5.setBounds(208, 700, 84, 40);
-        btn6.setBounds(302, 700, 84, 40);
-        btnSub.setBounds(396, 700, 84, 40);
+        btnAND.setBounds(20, 700-100, 84, 40);
+        btn4.setBounds(114, 700-100, 84, 40);
+        btn5.setBounds(208, 700-100, 84, 40);
+        btn6.setBounds(302, 700-100, 84, 40);
+        btnSub.setBounds(396, 700-100, 84, 40);
         //第七行
-        btnXOR.setBounds(20, 780, 84, 40);
-        btn1.setBounds(114, 780, 84, 40);
-        btn2.setBounds(208, 780, 84, 40);
-        btn3.setBounds(302, 780, 84, 40);
-        btnAdd.setBounds(396, 780, 84, 40);
+        btnXOR.setBounds(20, 780-100, 84, 40);
+        btn1.setBounds(114, 780-100, 84, 40);
+        btn2.setBounds(208, 780-100, 84, 40);
+        btn3.setBounds(302, 780-100, 84, 40);
+        btnAdd.setBounds(396, 780-100, 84, 40);
         //第八行
-        btnCE.setBounds(20, 860, 84, 40);
-        btn0.setBounds(114, 860, 84, 40);
-        btnPoint.setBounds(208, 860, 84, 40);
-        btnComplement.setBounds(302, 860, 84, 40);
-        btnEquals.setBounds(396, 860, 84, 40);
+        btnCE.setBounds(20, 860-100, 84, 40);
+        btn0.setBounds(114, 860-100, 84, 40);
+        btnPoint.setBounds(208, 860-100, 84, 40);
+        btnComplement.setBounds(302, 860-100, 84, 40);
+        btnEquals.setBounds(396, 860-100, 84, 40);
         //显示进制
         jLabel1.setBounds(200,175,40,20);
         jLabel2.setBounds(260,175,40,20);
