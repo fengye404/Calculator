@@ -1,16 +1,14 @@
 package components;
 
-import components.listener.OperationButtonListener;
 import utils.ComponentUtil;
+import utils.ExpressionUtil;
 
-import javax.script.ScriptEngineManager;
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -21,7 +19,12 @@ public class CalDisplay extends JFrame {
     /**
      * 用于存放表达式的 StringBuilder
      */
-    public static ThreadLocal<StringBuilder> stringBuilderThreadLocal = new ThreadLocal<>();
+    public static StringBuilder stringBuilder = new StringBuilder();
+
+    /**
+     * 进制：8,10,16
+     */
+    private int advance = 10;
 
     //数字键0-9以及十六进制下的A,B,C,D,E,F
     List<JButton> numBtn = new ArrayList<>();
@@ -182,5 +185,101 @@ public class CalDisplay extends JFrame {
         jLabel16.setBounds(btnD.getX() + 28, btnD.getY() - 22, 40, 20);
         jLabel17.setBounds(btnE.getX() + 28, btnE.getY() - 22, 40, 20);
         jLabel18.setBounds(btnF.getX() + 28, btnF.getY() - 22, 40, 20);
+
+        initListener();
+    }
+
+    /**
+     * 初始化监听器
+     */
+    public void initListener() {
+        /**
+         * 等于
+         */
+        btnEquals.addActionListener(e -> {
+            String exp = stringBuilder.toString();
+            stringBuilder.delete(0, stringBuilder.length());
+            Double expression = ExpressionUtil.getExpression(exp);
+            stringBuilder.append(expression);
+            result_disPlay.setText(expression.toString());
+        });
+
+        /**
+         * CE和C （清除）
+         */
+        btnCE.addActionListener(e -> {
+            if (stringBuilder.length() == 0) {
+                return;
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            result_disPlay.setText(stringBuilder.toString());
+        });
+        btnClear.addActionListener(e -> {
+            if (stringBuilder.length() == 0) {
+                return;
+            }
+            stringBuilder.delete(0, stringBuilder.length());
+            result_disPlay.setText(stringBuilder.toString());
+        });
+
+        /**
+         * 位运算
+         */
+        btnOR.addActionListener(e -> {
+            stringBuilder.append("|");
+            result_disPlay.setText(stringBuilder.toString());
+        });
+        btnAND.addActionListener(e -> {
+            stringBuilder.append("&");
+            result_disPlay.setText(stringBuilder.toString());
+        });
+        btnXOR.addActionListener(e -> {
+            stringBuilder.append("^");
+            result_disPlay.setText(stringBuilder.toString());
+        });
+
+        /**
+         * 进制转换
+         */
+        btnDEC.addActionListener(e -> {
+            advance = 10;
+            stringBuilder.delete(0, stringBuilder.length());
+            result_disPlay.setText(stringBuilder.toString());
+        });
+        btnHEX.addActionListener(e -> {
+            advance = 16;
+            stringBuilder.delete(0, stringBuilder.length());
+            result_disPlay.setText(stringBuilder.toString());
+        });
+        btnOCT.addActionListener(e -> {
+            advance = 8;
+            stringBuilder.delete(0, stringBuilder.length());
+            result_disPlay.setText(stringBuilder.toString());
+        });
+
+        /**
+         * 码制转换
+         */
+        btnInverse.addActionListener(e -> {
+//            String s = stringBuilder.toString();
+//            Integer i = 0;
+//            try {
+//                i = Integer.valueOf(s);
+//                stringBuilder.delete(0, stringBuilder.length());
+//            } catch (NumberFormatException ex) {
+//                result_disPlay.setText("请输入正确的数值");
+//            }
+//            stringBuilder.append(i);
+//            result_disPlay.setText(stringBuilder.toString());
+        });
+    }
+
+    public class OperationButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String buttonText = e.getActionCommand();
+            stringBuilder.append(buttonText);
+            result_disPlay.setText(stringBuilder.toString());
+        }
     }
 }

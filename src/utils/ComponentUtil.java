@@ -29,4 +29,10 @@ public class ComponentUtil {
         jFrame.add(jTextField);
         return jTextField;
     }
+
+    public static JTextArea addTextArea(String text, JFrame jFrame) {
+        JTextArea jTextArea = new JTextArea(text);
+        jFrame.add(jTextArea);
+        return jTextArea;
+    }
 }

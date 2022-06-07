@@ -14,7 +14,6 @@ public class Main {
     public static void main(String[] args) {
         initGlobalFont(new Font("Microsoft YaHei UI Bold", 0, 15));  //统一设置字体
         try {
-            CalDisplay.stringBuilderThreadLocal.set(new StringBuilder());
             CalDisplay display = new CalDisplay();
         } catch (IOException e) {
             e.printStackTrace();

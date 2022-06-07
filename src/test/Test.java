@@ -13,7 +13,7 @@ public class Test {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine se = manager.getEngineByName("js");
         Double result = null;
-        String exp = "18be+6784";
+        String exp = "1&1";
 
         try {
             result = Double.valueOf(se.eval(exp).toString());
