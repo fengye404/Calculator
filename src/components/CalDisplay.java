@@ -56,11 +56,11 @@ public class CalDisplay extends JFrame {
 
     //CE键和C键
     JButton btnCE = new JButton("CE");          //清除输入
-    JButton btnClear = new JButton("C");        //清除显示器内容
+    JButton btnClear = new JButton("Clear");        //清除显示器内容
 
-    //开关计算器
-    JButton btnOFF = new JButton("OFF");       //开机
-    JButton btnON = new JButton("ON/C");       //关机
+    //开关计算器  去掉
+    //JButton btnOFF = new JButton("OFF");       //开机
+    //JButton btnON = new JButton("ON/C");       //关机
 
     //左右括号
     JButton btnLeftPare = new JButton("(");     //左括号
@@ -98,8 +98,6 @@ public class CalDisplay extends JFrame {
     JLabel jLabel18=new JLabel("1111");
 
 
-    //随便写个
-    JButton btnMusic=new JButton("Music");
 
     //美化标签
     JLabel Design=new JLabel("Design by 109");
@@ -140,8 +138,8 @@ public class CalDisplay extends JFrame {
         Design.setFont(new Font("Century Schoolbook",Font.ITALIC+Font.BOLD,20));
         Design.setBounds(80,220,200,50);
         //第一行
-        btnOFF.setBounds(302, 300, 84, 40);
-        btnON.setBounds(396, 300, 84, 40);
+        //btnOFF.setBounds(302, 300, 84, 40);
+        //btnON.setBounds(396, 300, 84, 40);
         //第二行
         btnDEC.setBounds(20, 380, 84, 40);
         btnHEX.setBounds(114, 380, 84, 40);
@@ -153,7 +151,7 @@ public class CalDisplay extends JFrame {
         btnD.setBounds(114, 460, 84, 40);
         btnE.setBounds(208, 460, 84, 40);
         btnF.setBounds(302, 460, 84, 40);
-        btnMusic.setBounds(396,460,84,40);
+        btnClear.setBounds(396,460,84,40);
         //第四行
         btnInverse.setBounds(20, 540, 84, 40);
         btnA.setBounds(114, 540, 84, 40);
@@ -189,28 +187,28 @@ public class CalDisplay extends JFrame {
         jLabel2.setBounds(260,175,40,20);
         jLabel3.setBounds(320,175,40,20);
         //数字键对应的二进制数
-        jLabel4.setBounds(btn1.getX()+28,btn1.getY()-30,40,20);
-        jLabel5.setBounds(btn2.getX()+28,btn2.getY()-30,40,20);
-        jLabel6.setBounds(btn3.getX()+28,btn3.getY()-30,40,20);
-        jLabel7.setBounds(btn4.getX()+28,btn4.getY()-30,40,20);
-        jLabel8.setBounds(btn5.getX()+28,btn5.getY()-30,40,20);
-        jLabel9.setBounds(btn6.getX()+28,btn6.getY()-30,40,20);
-        jLabel10.setBounds(btn7.getX()+28,btn7.getY()-30,40,20);
-        jLabel11.setBounds(btn8.getX()+28,btn8.getY()-30,40,20);
-        jLabel12.setBounds(btn9.getX()+28,btn9.getY()-30,40,20);
-        jLabel13.setBounds(btnA.getX()+28,btnA.getY()-30,40,20);
-        jLabel14.setBounds(btnB.getX()+28,btnB.getY()-30,40,20);
-        jLabel15.setBounds(btnC.getX()+28,btnC.getY()-30,40,20);
-        jLabel16.setBounds(btnD.getX()+28,btnD.getY()-30,40,20);
-        jLabel17.setBounds(btnE.getX()+28,btnE.getY()-30,40,20);
-        jLabel18.setBounds(btnF.getX()+28,btnF.getY()-30,40,20);
+        jLabel4.setBounds(btn1.getX()+28,btn1.getY()-22,40,20);
+        jLabel5.setBounds(btn2.getX()+28,btn2.getY()-22,40,20);
+        jLabel6.setBounds(btn3.getX()+28,btn3.getY()-22,40,20);
+        jLabel7.setBounds(btn4.getX()+28,btn4.getY()-22,40,20);
+        jLabel8.setBounds(btn5.getX()+28,btn5.getY()-22,40,20);
+        jLabel9.setBounds(btn6.getX()+28,btn6.getY()-22,40,20);
+        jLabel10.setBounds(btn7.getX()+28,btn7.getY()-22,40,20);
+        jLabel11.setBounds(btn8.getX()+28,btn8.getY()-22,40,20);
+        jLabel12.setBounds(btn9.getX()+28,btn9.getY()-22,40,20);
+        jLabel13.setBounds(btnA.getX()+28,btnA.getY()-22,40,20);
+        jLabel14.setBounds(btnB.getX()+28,btnB.getY()-22,40,20);
+        jLabel15.setBounds(btnC.getX()+28,btnC.getY()-22,40,20);
+        jLabel16.setBounds(btnD.getX()+28,btnD.getY()-22,40,20);
+        jLabel17.setBounds(btnE.getX()+28,btnE.getY()-22,40,20);
+        jLabel18.setBounds(btnF.getX()+28,btnF.getY()-22,40,20);
         Container container = new Container();
         add(result_disPlay);
         add(btnDEC);
         add(btnHEX);
         add(btnOCT);
-        add(btnOFF);
-        add(btnON);
+        //add(btnOFF);
+        //add(btnON);
         add(btnLeftPare);
         add(btnRightPare);
         add(btnShift);
@@ -218,7 +216,7 @@ public class CalDisplay extends JFrame {
         add(btnE);
         add(btnF);
         //加一个装饰
-        add(btnMusic);
+        add(btnClear);
         add(btnInverse);
         add(btnA);
         add(btnB);
