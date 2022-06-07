@@ -114,6 +114,8 @@ public class CalDisplay extends JFrame {
     JLabel Design = ComponentUtil.addLabel("Design by 109", this);
 
     public CalDisplay() throws HeadlessException, IOException, FontFormatException {
+        //初始化numBtn
+        AddBtnToList();
         //设置面板大小
         setBounds(100, 100, 500, 900);
         setResizable(false);
@@ -227,14 +229,14 @@ public class CalDisplay extends JFrame {
         jLabel17.setForeground(Color.WHITE);
         jLabel18.setForeground(Color.WHITE);
 
-        //设置数字键颜色
-        setNumColor();
+
         //设置小数点键和补码2‘sC的背景颜色
         btnPoint.setBackground(Color.WHITE);
         btnComplement.setBackground(Color.WHITE);
         //其他按键的字体颜色以及背景颜色
+        //btn1.setBackground(new Color(255, 255, 255));
         btnDEC.setForeground(new Color(255, 255, 255));
-        btnDEC.setBackground(new Color(58, 59, 60));
+        btnDEC.setBackground(new Color(59, 59, 59));
         btnHEX.setForeground(new Color(255, 255, 255));
         btnHEX.setBackground(new Color(58, 59, 60));
         btnLeftPare.setForeground(new Color(255, 255, 255));
@@ -265,7 +267,7 @@ public class CalDisplay extends JFrame {
         btnCE.setBackground(new Color(58, 59, 60));
         btnEquals.setForeground(new Color(0, 0, 0));
         btnEquals.setBackground(new Color(43, 135, 135));
-
+        setNumColor();
         Container container = getContentPane();
         //设置背景颜色
         container.setBackground(new Color(30, 33, 32));
@@ -356,8 +358,28 @@ public class CalDisplay extends JFrame {
     //设置0-F的背景颜色
     public void setNumColor() {
         for (Iterator<JButton> it = numBtn.iterator(); it.hasNext(); ) {
-            it.next().setBackground(Color.WHITE);
+            JButton jButton=it.next();
+            jButton.setBackground(new Color(255, 255, 255));
+            jButton.setForeground(new Color(0,0,0));
         }
+    }
+    public void AddBtnToList(){
+        numBtn.add(btn0);
+        numBtn.add(btn1);
+        numBtn.add(btn2);
+        numBtn.add(btn3);
+        numBtn.add(btn4);
+        numBtn.add(btn5);
+        numBtn.add(btn6);
+        numBtn.add(btn7);
+        numBtn.add(btn8);
+        numBtn.add(btn9);
+        numBtn.add(btnA);
+        numBtn.add(btnB);
+        numBtn.add(btnC);
+        numBtn.add(btnD);
+        numBtn.add(btnE);
+        numBtn.add(btnF);
     }
 
     public class OperationButtonListener implements ActionListener {
