@@ -52,6 +52,8 @@ public class CalDisplay extends JFrame {
     JButton btnE = ComponentUtil.addButton("E", new OperationButtonListener(), this);
     JButton btnF = ComponentUtil.addButton("F", new OperationButtonListener(), this);
 
+    //十六进制输入0X
+    JButton btn0X=ComponentUtil.addButton("0X",new OperationButtonListener(),this);
     //普通的四则运算按键+ - * /
     JButton btnAdd = ComponentUtil.addButton("+", new OperationButtonListener(), this);       //加法
     JButton btnSub = ComponentUtil.addButton("-", new OperationButtonListener(), this);       //减法
@@ -153,6 +155,7 @@ public class CalDisplay extends JFrame {
         Design.setBounds(80, 220, 200, 50);
         Design.setForeground(Color.WHITE);
         //第二行
+        btn0X.setBounds(20,380-100,84,40);
         btnDEC.setBounds(114, 380 - 100, 84, 40);
         btnHEX.setBounds(208, 380 - 100, 84, 40);
         btnLeftPare.setBounds(302, 380 - 100, 84, 40);
@@ -234,7 +237,8 @@ public class CalDisplay extends JFrame {
         btnPoint.setBackground(Color.WHITE);
         btnComplement.setBackground(Color.WHITE);
         //其他按键的字体颜色以及背景颜色
-        //btn1.setBackground(new Color(255, 255, 255));
+        btn0X.setForeground(new Color(255, 255, 255));
+        btn0X.setBackground(new Color(59, 59, 59));
         btnDEC.setForeground(new Color(255, 255, 255));
         btnDEC.setBackground(new Color(59, 59, 59));
         btnHEX.setForeground(new Color(255, 255, 255));
