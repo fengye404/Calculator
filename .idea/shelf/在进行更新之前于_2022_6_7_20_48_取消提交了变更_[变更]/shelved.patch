@@ -1,0 +1,152 @@
+Index: src/components/CalDisplay.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package components;\r\n\r\nimport javax.swing.*;\r\nimport javax.swing.plaf.FontUIResource;\r\nimport java.awt.*;\r\nimport java.io.IOException;\r\nimport java.io.InputStream;\r\nimport java.util.ArrayList;\r\nimport java.util.Enumeration;\r\nimport java.util.List;\r\n\r\n/**\r\n * @author: 風楪fy\r\n * @create: 2022/6/7 13:35\r\n **/\r\npublic class CalDisplay extends JFrame {\r\n    //数字键0-9以及十六进制下的A,B,C,D,E,F\r\n    List<JButton> numBtn = new ArrayList<>();\r\n    JButton btn0 = new JButton(\"0\");\r\n    JButton btn1 = new JButton(\"1\");\r\n    JButton btn2 = new JButton(\"2\");\r\n    JButton btn3 = new JButton(\"3\");\r\n    JButton btn4 = new JButton(\"4\");\r\n    JButton btn5 = new JButton(\"5\");\r\n    JButton btn6 = new JButton(\"6\");\r\n    JButton btn7 = new JButton(\"7\");\r\n    JButton btn8 = new JButton(\"8\");\r\n    JButton btn9 = new JButton(\"9\");\r\n    JButton btnA = new JButton(\"A\");\r\n    JButton btnB = new JButton(\"B\");\r\n    JButton btnC = new JButton(\"C\");\r\n    JButton btnD = new JButton(\"D\");\r\n    JButton btnE = new JButton(\"E\");\r\n    JButton btnF = new JButton(\"F\");\r\n\r\n    //普通的四则运算按键+ - * /\r\n    JButton btnAdd = new JButton(\"＋\");       //加法\r\n    JButton btnSub = new JButton(\"－\");       //减法\r\n    JButton btnMul = new JButton(\"×\");        //乘法\r\n    JButton btnDiv = new JButton(\"÷\");        //除法\r\n\r\n    //三种进制\r\n    JButton btnDEC = new JButton(\"DEC\");       //十进制\r\n    JButton btnHEX = new JButton(\"HEX\");       //十六进制\r\n    JButton btnOCT = new JButton(\"OCT\");       //八进制\r\n\r\n    //三种按位运算\r\n    JButton btnOR = new JButton(\"OR\");         //位与运算\r\n    JButton btnAND = new JButton(\"AND\");       //位或运算\r\n    JButton btnXOR = new JButton(\"XOR\");       //位非运算\r\n\r\n    //三种码制操作\r\n    JButton btnInverse = new JButton(\"1'sC\");       //反码\r\n    JButton btnComplement = new JButton(\"2'sC\");    //补码\r\n    JButton btnShift = new JButton(\"SHF\");          //移码\r\n\r\n    //CE键和C键\r\n    JButton btnCE = new JButton(\"CE\");          //清除输入\r\n    JButton btnClear = new JButton(\"Clear\");        //清除显示器内容\r\n\r\n    //开关计算器  去掉\r\n    //JButton btnOFF = new JButton(\"OFF\");       //开机\r\n    //JButton btnON = new JButton(\"ON/C\");       //关机\r\n\r\n    //左右括号\r\n    JButton btnLeftPare = new JButton(\"(\");     //左括号\r\n    JButton btnRightPare = new JButton(\")\");    //右括号\r\n\r\n    //等号，小数点\r\n    JButton btnEquals = new JButton(\"=\");        //等号\r\n    JButton btnPoint = new JButton(\".\");         //小数点\r\n\r\n    //显示器\r\n    JTextField result_disPlay = new JTextField();    //显示结果\r\n    //字体\r\n    Font font=new Font(\"Microsoft YaHei UI Bold\",Font.BOLD,40);\r\n\r\n    //显示进制\r\n    JLabel jLabel1=new JLabel(\"DEC\");   //十进制\r\n    JLabel jLabel2=new JLabel(\"HEX\");   //十六进制\r\n    JLabel jLabel3=new JLabel(\"OCT\");   //八进制\r\n\r\n    //数字键对应的二进制数\r\n    JLabel jLabel4=new JLabel(\"0001\");\r\n    JLabel jLabel5=new JLabel(\"0010\");\r\n    JLabel jLabel6=new JLabel(\"0011\");\r\n    JLabel jLabel7=new JLabel(\"0100\");\r\n    JLabel jLabel8=new JLabel(\"0101\");\r\n    JLabel jLabel9=new JLabel(\"0110\");\r\n    JLabel jLabel10=new JLabel(\"0111\");\r\n    JLabel jLabel11=new JLabel(\"1000\");\r\n    JLabel jLabel12=new JLabel(\"1001\");\r\n    JLabel jLabel13=new JLabel(\"1010\");\r\n    JLabel jLabel14=new JLabel(\"1011\");\r\n    JLabel jLabel15=new JLabel(\"1100\");\r\n    JLabel jLabel16=new JLabel(\"1101\");\r\n    JLabel jLabel17=new JLabel(\"1110\");\r\n    JLabel jLabel18=new JLabel(\"1111\");\r\n\r\n\r\n\r\n    //美化标签\r\n    JLabel Design=new JLabel(\"Design by 109\");\r\n\r\n    public CalDisplay() throws HeadlessException,IOException,FontFormatException {\r\n        //设置面板大小\r\n        setBounds(100, 100, 520, 900);\r\n        setResizable(false);\r\n        setVisible(true);\r\n        //设置布局方式\r\n        setLayout(null);    //自定义布局\r\n\r\n        //将数字键0-9加入列表\r\n        numBtn.add(btn0);\r\n        numBtn.add(btn1);\r\n        numBtn.add(btn2);\r\n        numBtn.add(btn3);\r\n        numBtn.add(btn4);\r\n        numBtn.add(btn5);\r\n        numBtn.add(btn6);\r\n        numBtn.add(btn7);\r\n        numBtn.add(btn8);\r\n        numBtn.add(btn9);\r\n        numBtn.add(btnA);\r\n        numBtn.add(btnB);\r\n        numBtn.add(btnC);\r\n        numBtn.add(btnD);\r\n        numBtn.add(btnE);\r\n        numBtn.add(btnF);\r\n\r\n        //设置组件的位置和大小\r\n        //显示器\r\n        result_disPlay.setBounds(20, 20, 460, 150);\r\n        result_disPlay.setFont(font);\r\n        result_disPlay.setHorizontalAlignment(JTextField.RIGHT);\r\n\r\n        //装饰\r\n        Design.setFont(new Font(\"Century Schoolbook\",Font.ITALIC+Font.BOLD,20));\r\n        Design.setBounds(80,220,200,50);\r\n        //第一行\r\n        //btnOFF.setBounds(302, 300, 84, 40);\r\n        //btnON.setBounds(396, 300, 84, 40);\r\n        //第二行\r\n        btnDEC.setBounds(20, 380-100, 84, 40);\r\n        btnHEX.setBounds(114, 380-100, 84, 40);\r\n        btnOCT.setBounds(208, 380-100, 84, 40);\r\n        btnLeftPare.setBounds(302, 380-100, 84, 40);\r\n        btnRightPare.setBounds(396, 380-100, 84, 40);\r\n        //第三行\r\n        btnShift.setBounds(20, 460-100, 84, 40);\r\n        btnD.setBounds(114, 460-100, 84, 40);\r\n        btnE.setBounds(208, 460-100, 84, 40);\r\n        btnF.setBounds(302, 460-100, 84, 40);\r\n        btnClear.setBounds(396,460-100,84,40);\r\n        //第四行\r\n        btnInverse.setBounds(20, 540-100, 84, 40);\r\n        btnA.setBounds(114, 540-100, 84, 40);\r\n        btnB.setBounds(208, 540-100, 84, 40);\r\n        btnC.setBounds(302, 540-100, 84, 40);\r\n        btnDiv.setBounds(396, 540-100, 84, 40);\r\n        //第五行\r\n        btnOR.setBounds(20, 620-100, 84, 40);\r\n        btn7.setBounds(114, 620-100, 84, 40);\r\n        btn8.setBounds(208, 620-100, 84, 40);\r\n        btn9.setBounds(302, 620-100, 84, 40);\r\n        btnMul.setBounds(396, 620-100, 84, 40);\r\n        //第六行\r\n        btnAND.setBounds(20, 700-100, 84, 40);\r\n        btn4.setBounds(114, 700-100, 84, 40);\r\n        btn5.setBounds(208, 700-100, 84, 40);\r\n        btn6.setBounds(302, 700-100, 84, 40);\r\n        btnSub.setBounds(396, 700-100, 84, 40);\r\n        //第七行\r\n        btnXOR.setBounds(20, 780-100, 84, 40);\r\n        btn1.setBounds(114, 780-100, 84, 40);\r\n        btn2.setBounds(208, 780-100, 84, 40);\r\n        btn3.setBounds(302, 780-100, 84, 40);\r\n        btnAdd.setBounds(396, 780-100, 84, 40);\r\n        //第八行\r\n        btnCE.setBounds(20, 860-100, 84, 40);\r\n        btn0.setBounds(114, 860-100, 84, 40);\r\n        btnPoint.setBounds(208, 860-100, 84, 40);\r\n        btnComplement.setBounds(302, 860-100, 84, 40);\r\n        btnEquals.setBounds(396, 860-100, 84, 40);\r\n        //显示进制\r\n        jLabel1.setBounds(200,175,40,20);\r\n        jLabel2.setBounds(260,175,40,20);\r\n        jLabel3.setBounds(320,175,40,20);\r\n        //数字键对应的二进制数\r\n        jLabel4.setBounds(btn1.getX()+28,btn1.getY()-22,40,20);\r\n        jLabel5.setBounds(btn2.getX()+28,btn2.getY()-22,40,20);\r\n        jLabel6.setBounds(btn3.getX()+28,btn3.getY()-22,40,20);\r\n        jLabel7.setBounds(btn4.getX()+28,btn4.getY()-22,40,20);\r\n        jLabel8.setBounds(btn5.getX()+28,btn5.getY()-22,40,20);\r\n        jLabel9.setBounds(btn6.getX()+28,btn6.getY()-22,40,20);\r\n        jLabel10.setBounds(btn7.getX()+28,btn7.getY()-22,40,20);\r\n        jLabel11.setBounds(btn8.getX()+28,btn8.getY()-22,40,20);\r\n        jLabel12.setBounds(btn9.getX()+28,btn9.getY()-22,40,20);\r\n        jLabel13.setBounds(btnA.getX()+28,btnA.getY()-22,40,20);\r\n        jLabel14.setBounds(btnB.getX()+28,btnB.getY()-22,40,20);\r\n        jLabel15.setBounds(btnC.getX()+28,btnC.getY()-22,40,20);\r\n        jLabel16.setBounds(btnD.getX()+28,btnD.getY()-22,40,20);\r\n        jLabel17.setBounds(btnE.getX()+28,btnE.getY()-22,40,20);\r\n        jLabel18.setBounds(btnF.getX()+28,btnF.getY()-22,40,20);\r\n        Container container = new Container();\r\n        add(result_disPlay);\r\n        add(btnDEC);\r\n        add(btnHEX);\r\n        add(btnOCT);\r\n        //add(btnOFF);\r\n        //add(btnON);\r\n        add(btnLeftPare);\r\n        add(btnRightPare);\r\n        add(btnShift);\r\n        add(btnD);\r\n        add(btnE);\r\n        add(btnF);\r\n        //加一个装饰\r\n        add(btnClear);\r\n        add(btnInverse);\r\n        add(btnA);\r\n        add(btnB);\r\n        add(btnC);\r\n        add(btnDiv);\r\n        add(btnOR);\r\n        add(btn7);\r\n        add(btn8);\r\n        add(btn9);\r\n        add(btnMul);\r\n        add(btnAND);\r\n        add(btn4);\r\n        add(btn5);\r\n        add(btn6);\r\n        add(btnSub);\r\n        add(btnXOR);\r\n        add(btn1);\r\n        add(btn2);\r\n        add(btn3);\r\n        add(btnAdd);\r\n        add(btnCE);\r\n        add(btn0);\r\n        add(btnPoint);\r\n        add(btnComplement);\r\n        add(btnEquals);\r\n        add(jLabel1);\r\n        add(jLabel2);\r\n        add(jLabel3);\r\n        add(jLabel4);\r\n        add(jLabel5);\r\n        add(jLabel6);\r\n        add(jLabel7);\r\n        add(jLabel8);\r\n        add(jLabel9);\r\n        add(jLabel10);\r\n        add(jLabel11);\r\n        add(jLabel12);\r\n        add(jLabel13);\r\n        add(jLabel14);\r\n        add(jLabel15);\r\n        add(jLabel16);\r\n        add(jLabel17);\r\n        add(jLabel18);\r\n        add(Design);\r\n    }\r\n\r\n    //有BUG先废弃\r\n    public Font loadFont() throws IOException,FontFormatException {\r\n        String fontFilename = \"Technology-Bold.ttf\";\r\n        InputStream is=this.getClass().getResourceAsStream(fontFilename);\r\n        Font actionJson=Font.createFont(Font.TRUETYPE_FONT,is);\r\n        Font actionJsonBase=actionJson.deriveFont(Font.BOLD,40);\r\n        return actionJsonBase;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/CalDisplay.java b/src/components/CalDisplay.java
+--- a/src/components/CalDisplay.java	(revision 8dc5c716c7f7b35a45417fc5f78ea8d01d7ca677)
++++ b/src/components/CalDisplay.java	(date 1654605116143)
+@@ -7,6 +7,7 @@
+ import java.io.InputStream;
+ import java.util.ArrayList;
+ import java.util.Enumeration;
++import java.util.Iterator;
+ import java.util.List;
+ 
+ /**
+@@ -110,6 +111,7 @@
+         //设置布局方式
+         setLayout(null);    //自定义布局
+ 
++
+         //将数字键0-9加入列表
+         numBtn.add(btn0);
+         numBtn.add(btn1);
+@@ -142,6 +144,7 @@
+         //btnON.setBounds(396, 300, 84, 40);
+         //第二行
+         btnDEC.setBounds(20, 380-100, 84, 40);
++        //btnDEC.setBackground(new Color(255, 255, 255));
+         btnHEX.setBounds(114, 380-100, 84, 40);
+         btnOCT.setBounds(208, 380-100, 84, 40);
+         btnLeftPare.setBounds(302, 380-100, 84, 40);
+@@ -202,7 +205,52 @@
+         jLabel16.setBounds(btnD.getX()+28,btnD.getY()-22,40,20);
+         jLabel17.setBounds(btnE.getX()+28,btnE.getY()-22,40,20);
+         jLabel18.setBounds(btnF.getX()+28,btnF.getY()-22,40,20);
++
++
++        //设置数字键颜色
++        setNumColor();
++        //设置小数点键和补码2‘sC的背景颜色
++        btnPoint.setBackground(Color.WHITE);
++        btnComplement.setBackground(Color.WHITE);
++        //其他按键的字体颜色以及背景颜色
++        btnDEC.setForeground(new Color(255, 255, 255));
++        btnDEC.setBackground(new Color(58, 59, 60));
++        btnHEX.setForeground(new Color(255, 255, 255));
++        btnHEX.setBackground(new Color(58, 59, 60));
++        btnOCT.setForeground(new Color(255, 255, 255));
++        btnOCT.setBackground(new Color(58, 59, 60));
++        btnLeftPare.setForeground(new Color(255, 255, 255));
++        btnLeftPare.setBackground(new Color(58, 59, 60));
++        btnRightPare.setForeground(new Color(255, 255, 255));
++        btnRightPare.setBackground(new Color(58, 59, 60));
++        btnShift.setForeground(new Color(255, 255, 255));
++        btnShift.setBackground(new Color(58, 59, 60));
++        btnInverse.setForeground(new Color(255, 255, 255));
++        btnInverse.setBackground(new Color(58, 59, 60));
++        btnClear.setForeground(new Color(255, 255, 255));
++        btnClear.setBackground(new Color(58, 59, 60));
++        btnDiv.setForeground(new Color(255, 255, 255));
++        btnDiv.setBackground(new Color(58, 59, 60));
++        btnOR.setForeground(new Color(255, 255, 255));
++        btnOR.setBackground(new Color(58, 59, 60));
++        btnMul.setForeground(new Color(255, 255, 255));
++        btnMul.setBackground(new Color(58, 59, 60));
++        btnAND.setForeground(new Color(255, 255, 255));
++        btnAND.setBackground(new Color(58, 59, 60));
++        btnSub.setForeground(new Color(255, 255, 255));
++        btnSub.setBackground(new Color(58, 59, 60));
++        btnXOR.setForeground(new Color(255, 255, 255));
++        btnXOR.setBackground(new Color(58, 59, 60));
++        btnAdd.setForeground(new Color(255, 255, 255));
++        btnAdd.setBackground(new Color(58, 59, 60));
++        btnCE.setForeground(new Color(255, 255, 255));
++        btnCE.setBackground(new Color(58, 59, 60));
++        btnEquals.setForeground(new Color(255, 255, 255));
++        btnEquals.setBackground(new Color(58, 59, 60));
++
+         Container container = new Container();
++        //设置背景颜色
++        container.setBackground(new Color(159, 0, 0));
+         add(result_disPlay);
+         add(btnDEC);
+         add(btnHEX);
+@@ -271,4 +319,10 @@
+         Font actionJsonBase=actionJson.deriveFont(Font.BOLD,40);
+         return actionJsonBase;
+     }
++    //设置0-F的背景颜色
++    public void setNumColor(){
++        for (Iterator<JButton> it = numBtn.iterator(); it.hasNext();){
++            it.next().setBackground(Color.WHITE);
++        }
++    }
+ }
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"a8cb32e7-f575-4cc2-99a3-1fd9f165b706\" name=\"变更\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/CalDisplay.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/CalDisplay.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2AEgI4pUd4UFRtuZQC6AtDjwKuX\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Main\" />\r\n      <module name=\"Calculator\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"应用程序.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"应用程序级\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"默认任务\">\r\n      <changelist id=\"a8cb32e7-f575-4cc2-99a3-1fd9f165b706\" name=\"变更\" comment=\"\" />\r\n      <created>1654580078282</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1654580078282</updated>\r\n      <workItem from=\"1654580079661\" duration=\"1408000\" />\r\n      <workItem from=\"1654599950686\" duration=\"1657000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"优化了十进制对应二进制数的位置，删除了无用的按钮\">\r\n      <created>1654600437681</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1654600437681</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"优化了十进制对应二进制数的位置，删除了无用的按钮\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"优化了十进制对应二进制数的位置，删除了无用的按钮\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 8dc5c716c7f7b35a45417fc5f78ea8d01d7ca677)
++++ b/.idea/workspace.xml	(date 1654606132123)
+@@ -22,6 +22,7 @@
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -58,7 +59,7 @@
+       <option name="presentableId" value="Default" />
+       <updated>1654580078282</updated>
+       <workItem from="1654580079661" duration="1408000" />
+-      <workItem from="1654599950686" duration="1657000" />
++      <workItem from="1654599950686" duration="5206000" />
+     </task>
+     <task id="LOCAL-00001" summary="优化了十进制对应二进制数的位置，删除了无用的按钮">
+       <created>1654600437681</created>
+@@ -67,7 +68,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1654600437681</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="优化了布局">
++      <created>1654602251384</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1654602251384</updated>
++    </task>
++    <option name="localTasksCounter" value="3" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -87,6 +95,7 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="优化了十进制对应二进制数的位置，删除了无用的按钮" />
+-    <option name="LAST_COMMIT_MESSAGE" value="优化了十进制对应二进制数的位置，删除了无用的按钮" />
++    <MESSAGE value="优化了布局" />
++    <option name="LAST_COMMIT_MESSAGE" value="优化了布局" />
+   </component>
+ </project>
+\ No newline at end of file
