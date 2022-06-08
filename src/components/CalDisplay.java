@@ -2,6 +2,7 @@ package components;
 
 import utils.ComponentUtil;
 import utils.ExpressionUtil;
+import utils.NumberUtil;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -15,6 +16,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @author: 風楪fy
@@ -283,6 +285,15 @@ public class CalDisplay extends JFrame {
      */
     public void initListener() {
         /**
+         * 0X（作为输入16进制的前缀）
+         */
+        btn0X.addActionListener(e -> {
+            for (int i = 10; i < 16; i++) {
+                numBtn.get(i).setEnabled(true);
+            }
+        });
+
+        /**
          * 等于
          */
         btnEquals.addActionListener(e -> {
@@ -338,6 +349,9 @@ public class CalDisplay extends JFrame {
             try {
                 if (s.startsWith("0X")) {
                     s = s.substring(2).toLowerCase();
+                } else {
+                    result_disPlay.setText("请输入正确的十六进制数");
+                    return;
                 }
                 stringBuilder.append(Integer.parseInt(s, 16));
             } catch (NumberFormatException ex) {
@@ -352,7 +366,7 @@ public class CalDisplay extends JFrame {
             stringBuilder.delete(0, stringBuilder.length());
             try {
                 String hexString = Integer.toHexString(Integer.parseInt(s)).toUpperCase();
-                stringBuilder.append(hexString);
+                stringBuilder.append("0X" + hexString);
             } catch (NumberFormatException ex) {
                 result_disPlay.setText("请输入正确的十进制数");
                 return;
@@ -365,16 +379,34 @@ public class CalDisplay extends JFrame {
          * 码制转换
          */
         btnInverse.addActionListener(e -> {
-//            String s = stringBuilder.toString();
-//            Integer i = 0;
-//            try {
-//                i = Integer.valueOf(s);
-//                stringBuilder.delete(0, stringBuilder.length());
-//            } catch (NumberFormatException ex) {
-//                result_disPlay.setText("请输入正确的数值");
-//            }
-//            stringBuilder.append(i);
-//            result_disPlay.setText(stringBuilder.toString());
+            String s = stringBuilder.toString();
+            stringBuilder.delete(0, stringBuilder.length());
+            //10进制
+            if (!s.startsWith("0X")) {
+                Integer i;
+                try {
+                    i = Integer.parseInt(s);
+                } catch (NumberFormatException ex) {
+                    result_disPlay.setText("请输入正确的数");
+                    return;
+                }
+                Integer decInverse = NumberUtil.getDecInverse(i);
+                stringBuilder.append(decInverse);
+                result_disPlay.setText(stringBuilder.toString());
+            } else {
+                s = s.substring(2).toLowerCase();
+                Integer i;
+                try {
+                    i = Integer.parseInt(s, 16);
+                } catch (NumberFormatException ex) {
+                    result_disPlay.setText("请输入正确的数");
+                    return;
+                }
+                Integer decInverse = NumberUtil.getDecInverse(i);
+                String hexString = Integer.toHexString(decInverse).toUpperCase();
+                stringBuilder.append("0X" + hexString);
+                result_disPlay.setText(stringBuilder.toString());
+            }
         });
     }
 
@@ -423,6 +455,11 @@ public class CalDisplay extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             String buttonText = e.getActionCommand();
+            if (Pattern.matches("[^0-9A-F0X]", buttonText)) {
+                for (int i = 10; i < 16; i++) {
+                    numBtn.get(i).setEnabled(false);
+                }
+            }
             stringBuilder.append(buttonText);
             result_disPlay.setText(stringBuilder.toString());
         }

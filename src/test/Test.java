@@ -4,6 +4,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.math.BigInteger;
+import java.util.regex.Pattern;
 
 /**
  * @author: 風楪fy
@@ -11,18 +12,11 @@ import java.math.BigInteger;
  **/
 public class Test {
     public static void main(String[] args) {
-//        ScriptEngineManager manager = new ScriptEngineManager();
-//        ScriptEngine se = manager.getEngineByName("js");
-//        Double result = null;
-//        String exp = "(1+1)*2/3";
-//        try {
-//            result = Double.valueOf(se.eval(exp).toString());
-//            System.out.println(result);
-//        } catch (ScriptException e) {
-//            e.printStackTrace();
-//        }
-
-        Float f=0.15490197f;
-        System.out.println(Integer.toHexString(Float.floatToIntBits(f)));
+//        System.out.println(Integer.toBinaryString(10));
+//        System.out.println(Integer.toBinaryString(~10));
+//        System.out.println(Integer.parseInt("2147483648"));
+        if (Pattern.matches("[^0-9A-F0X]", "1")) {
+            System.out.println(1);
+        }
     }
 }
