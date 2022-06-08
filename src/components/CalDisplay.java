@@ -9,10 +9,8 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -28,9 +26,15 @@ public class CalDisplay extends JFrame {
      */
     public static StringBuilder stringBuilder = new StringBuilder();
 
+
+    //记录拖动窗口时鼠标的位置
+    private int xOld,yOld;
     //关闭窗口，最小化窗口
-    JButton btnClose = new JButton();
-    JButton btnMin = new JButton();
+    Icon min=new ImageIcon("D:\\code\\javacode\\fengye404Calculator\\src\\Min.png");
+    Icon close=new ImageIcon("D:\\code\\javacode\\fengye404Calculator\\src\\Close.png");
+    JButton btnClose = new JButton(close);
+    JButton btnMin = new JButton(min);
+
 
     //数字键0-9以及十六进制下的A,B,C,D,E,F
     List<JButton> numBtn = new ArrayList<>();
@@ -112,7 +116,7 @@ public class CalDisplay extends JFrame {
     JLabel jLabel18 = ComponentUtil.addLabel("1111", this);
 
     //美化标签
-    JLabel Design = ComponentUtil.addLabel("Design by 109", this);
+    JLabel Design = ComponentUtil.addLabel("Designed by 109", this);
 
     public CalDisplay() throws HeadlessException, IOException, FontFormatException {
         //初始化numBtn
@@ -144,6 +148,10 @@ public class CalDisplay extends JFrame {
         //最小化按钮和关闭按钮
         btnMin.setBounds(420, 0, 40, 30);
         btnClose.setBounds(460, 0, 40, 30);
+
+
+
+
         //显示器
         result_disPlay.setBounds(20, 40, 460, 150);
         result_disPlay.setFont(new Font("Microsoft YaHei UI Bold", Font.BOLD, 40));
@@ -374,7 +382,47 @@ public class CalDisplay extends JFrame {
             result_disPlay.setText(stringBuilder.toString());
             changeAdvance(16);
         });
+        btn0X.addActionListener(e->{
+            for(int i=10;i<16;i++){
+                numBtn.get(i).setEnabled(true);
+            }
+        });
 
+
+        /*
+        最小化窗口，关闭窗口按钮监听,拖动窗口
+         */
+       btnClose.addMouseListener(new MouseAdapter() {
+           @Override
+           public void mousePressed(MouseEvent e) {
+               dispose();
+               System.exit(0);
+           }
+       });
+       btnMin.addMouseListener(new MouseAdapter() {
+           @Override
+           public void mousePressed(MouseEvent e) {
+               setExtendedState(JFrame.ICONIFIED);
+           }
+       });
+
+       addMouseListener(new MouseAdapter() {
+           @Override
+           public void mousePressed(MouseEvent e) {
+               xOld=e.getX();
+               yOld=e.getY();
+           }
+       });
+       addMouseMotionListener(new MouseMotionAdapter() {
+           @Override
+           public void mouseDragged(MouseEvent e) {
+               int xOnScreen=e.getXOnScreen();
+               int yOnScreen=e.getYOnScreen();
+               int xx=xOnScreen-xOld;
+               int yy=yOnScreen-yOld;
+               setLocation(xx,yy);
+           }
+       });
         /**
          * 码制转换
          */
@@ -436,6 +484,9 @@ public class CalDisplay extends JFrame {
         numBtn.add(btnD);
         numBtn.add(btnE);
         numBtn.add(btnF);
+        for (int i = 10; i <16 ; i++) {
+            numBtn.get(i).setEnabled(false);
+        }
     }
 
     /**
@@ -499,6 +550,8 @@ public class CalDisplay extends JFrame {
         }
     }
 
+
 }
+
 
 
