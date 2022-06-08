@@ -22,4 +22,11 @@ public class ExpressionUtil {
         }
         return result;
     }
+    public static int calShiftSequence(int init,int num){
+        if(num>0){//左移
+            return init<<num;
+        }else {//右移
+            return init>>Math.abs(num);
+        }
+    }
 }

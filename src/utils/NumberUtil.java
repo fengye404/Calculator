@@ -51,7 +51,7 @@ public class NumberUtil {
      * @return
      */
     public static String getBinaryString(Integer i) {
-        String s = Integer.toBinaryString(i);
+        String s = Integer.toBinaryString(-1*i);
         StringBuilder sb = new StringBuilder();
         for (int j = s.length(); j < 32; j++) {
             sb.append(0);

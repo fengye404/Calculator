@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -25,13 +26,16 @@ public class CalDisplay extends JFrame {
      * 用于存放表达式的 StringBuilder
      */
     public static StringBuilder stringBuilder = new StringBuilder();
-
+    //移位标记
+    boolean isShift = false;
+    //需要移位的数
+    String initNum;
 
     //记录拖动窗口时鼠标的位置
-    private int xOld,yOld;
+    private int xOld, yOld;
     //关闭窗口，最小化窗口
-    Icon min=new ImageIcon("D:\\code\\javacode\\fengye404Calculator\\src\\Min.png");
-    Icon close=new ImageIcon("D:\\code\\javacode\\fengye404Calculator\\src\\Close.png");
+    Icon min = new ImageIcon("D:\\code\\javacode\\fengye404Calculator\\src\\Min.png");
+    Icon close = new ImageIcon("D:\\code\\javacode\\fengye404Calculator\\src\\Close.png");
     JButton btnClose = new JButton(close);
     JButton btnMin = new JButton(min);
 
@@ -148,8 +152,6 @@ public class CalDisplay extends JFrame {
         //最小化按钮和关闭按钮
         btnMin.setBounds(420, 0, 40, 30);
         btnClose.setBounds(460, 0, 40, 30);
-
-
 
 
         //显示器
@@ -305,11 +307,63 @@ public class CalDisplay extends JFrame {
          * 等于
          */
         btnEquals.addActionListener(e -> {
-            String exp = stringBuilder.toString();
-            stringBuilder.delete(0, stringBuilder.length());
-            Double expression = ExpressionUtil.getExpression(exp);
-            stringBuilder.append(expression);
-            result_disPlay.setText(expression.toString());
+            if (isShift == false) {
+                String exp = stringBuilder.toString();
+                stringBuilder.delete(0, stringBuilder.length());
+                Double expression = ExpressionUtil.getExpression(exp);
+                stringBuilder.append(expression);
+                result_disPlay.setText(expression.toString());
+            } else {
+                int i1, i2;
+                String shiftNum = stringBuilder.toString();//将移动位数拿到手
+                stringBuilder.delete(0, stringBuilder.length());
+                if (shiftNum.charAt(0) == '-') { //
+                    StringBuilder temp = new StringBuilder(shiftNum);
+                    temp.delete(1, 3);
+                    shiftNum = temp.toString().toLowerCase();
+                    try {
+                        i2 = Integer.parseInt(shiftNum, 16);
+                    } catch (NumberFormatException ex) {
+                        result_disPlay.setText("请输入正确的十六进制数");
+                        return;
+                    }
+                }
+                else{
+                    shiftNum=shiftNum.substring(2).toLowerCase();
+                    try{
+                        i2=Integer.parseInt(shiftNum,16);
+                    }catch (NumberFormatException ex){
+                        result_disPlay.setText("请输入正确的十六进制数");
+                        return;
+                    }
+                }
+
+
+                if (initNum.charAt(0) == '-') { //
+                    StringBuilder temp = new StringBuilder(initNum);
+                    temp.delete(1, 3);
+                    initNum = temp.toString().toLowerCase();
+                    try {
+                        i1 = Integer.parseInt(initNum, 16);
+                    } catch (NumberFormatException ex) {
+                        result_disPlay.setText("请输入正确的十六进制数");
+                        return;
+                    }
+                }
+                else{
+                    initNum=initNum.substring(2).toLowerCase();
+                    try{
+                        i1=Integer.parseUnsignedInt(initNum,16);
+                    }catch (NumberFormatException ex){
+                        result_disPlay.setText("请输入正确的十六进制数");
+                        return;
+                    }
+                }
+
+               result_disPlay.setText(Integer.toHexString(ExpressionUtil.calShiftSequence(i1,i2)) );
+                isShift=false;
+            }
+
         });
 
         /**
@@ -357,6 +411,10 @@ public class CalDisplay extends JFrame {
             try {
                 if (s.startsWith("0X")) {
                     s = s.substring(2).toLowerCase();
+                } else if (s.startsWith("-0X")) {
+                    StringBuilder temp = new StringBuilder(s);
+                    temp.delete(1, 3);
+                    s = temp.toString();
                 } else {
                     result_disPlay.setText("请输入正确的十六进制数");
                     return;
@@ -382,8 +440,8 @@ public class CalDisplay extends JFrame {
             result_disPlay.setText(stringBuilder.toString());
             changeAdvance(16);
         });
-        btn0X.addActionListener(e->{
-            for(int i=10;i<16;i++){
+        btn0X.addActionListener(e -> {
+            for (int i = 10; i < 16; i++) {
                 numBtn.get(i).setEnabled(true);
             }
         });
@@ -392,37 +450,37 @@ public class CalDisplay extends JFrame {
         /*
         最小化窗口，关闭窗口按钮监听,拖动窗口
          */
-       btnClose.addMouseListener(new MouseAdapter() {
-           @Override
-           public void mousePressed(MouseEvent e) {
-               dispose();
-               System.exit(0);
-           }
-       });
-       btnMin.addMouseListener(new MouseAdapter() {
-           @Override
-           public void mousePressed(MouseEvent e) {
-               setExtendedState(JFrame.ICONIFIED);
-           }
-       });
+        btnClose.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                dispose();
+                System.exit(0);
+            }
+        });
+        btnMin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                setExtendedState(JFrame.ICONIFIED);
+            }
+        });
 
-       addMouseListener(new MouseAdapter() {
-           @Override
-           public void mousePressed(MouseEvent e) {
-               xOld=e.getX();
-               yOld=e.getY();
-           }
-       });
-       addMouseMotionListener(new MouseMotionAdapter() {
-           @Override
-           public void mouseDragged(MouseEvent e) {
-               int xOnScreen=e.getXOnScreen();
-               int yOnScreen=e.getYOnScreen();
-               int xx=xOnScreen-xOld;
-               int yy=yOnScreen-yOld;
-               setLocation(xx,yy);
-           }
-       });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                xOld = e.getX();
+                yOld = e.getY();
+            }
+        });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int xOnScreen = e.getXOnScreen();
+                int yOnScreen = e.getYOnScreen();
+                int xx = xOnScreen - xOld;
+                int yy = yOnScreen - yOld;
+                setLocation(xx, yy);
+            }
+        });
         /**
          * 码制转换
          */
@@ -430,7 +488,7 @@ public class CalDisplay extends JFrame {
             String s = stringBuilder.toString();
             stringBuilder.delete(0, stringBuilder.length());
             //10进制
-            if (!s.startsWith("0X")) {
+            if (!s.startsWith("0X") && !s.startsWith("-0X")) {
                 Integer i;
                 try {
                     i = Integer.parseInt(s);
@@ -442,7 +500,14 @@ public class CalDisplay extends JFrame {
                 stringBuilder.append(decInverse);
                 result_disPlay.setText(stringBuilder.toString());
             } else {
-                s = s.substring(2).toLowerCase();
+                if (s.charAt(0) == '-') {
+                    StringBuilder temp = new StringBuilder(s);
+                    temp.delete(1, 3);
+                    s = temp.toString().toLowerCase();
+                } else {
+                    s = s.substring(2).toLowerCase();
+                }
+
                 Integer i;
                 try {
                     i = Integer.parseInt(s, 16);
@@ -451,10 +516,69 @@ public class CalDisplay extends JFrame {
                     return;
                 }
                 Integer decInverse = NumberUtil.getDecInverse(i);
-                String hexString = Integer.toHexString(decInverse).toUpperCase();
-                stringBuilder.append("0X" + hexString);
+                if (decInverse < 0) {
+                    String hexString = Integer.toHexString(Math.abs(decInverse)).toUpperCase();
+                    stringBuilder.append("-0X" + hexString);
+                } else {
+                    String hexString = Integer.toHexString(decInverse).toUpperCase();
+                    stringBuilder.append("0X" + hexString);
+
+                }
                 result_disPlay.setText(stringBuilder.toString());
             }
+        });
+        btnComplement.addActionListener(e -> {
+            String s = stringBuilder.toString();
+            stringBuilder.delete(0, stringBuilder.length());
+            //十进制
+            if (!s.startsWith("0X") && !s.startsWith("-0X")) {
+                Integer i;
+                try {
+                    i = Integer.parseInt(s);
+                } catch (NumberFormatException ex) {
+                    result_disPlay.setText("请输入正确的数");
+                    return;
+                }
+                Integer decInverse = NumberUtil.getDecInverse(i);
+
+                if (decInverse < 0) {
+                    decInverse--;
+                }
+                stringBuilder.append(decInverse);
+                result_disPlay.setText(stringBuilder.toString());
+            } else {
+                if (s.charAt(0) == '-') {
+                    StringBuilder temp = new StringBuilder(s);
+                    temp.delete(1, 3);
+                    s = temp.toString().toLowerCase();
+                } else {
+                    s = s.substring(2).toLowerCase();
+                }
+
+                Integer i;
+                try {
+                    i = Integer.parseInt(s, 16);
+                } catch (NumberFormatException ex) {
+                    result_disPlay.setText("请输入正确的数");
+                    return;
+                }
+                Integer decInverse = NumberUtil.getDecInverse(i);
+                if (decInverse < 0) {
+                    String hexString = Integer.toHexString(Math.abs(decInverse) + 1).toUpperCase();
+                    stringBuilder.append("-0X" + hexString);
+                } else {
+                    String hexString = Integer.toHexString(decInverse).toUpperCase();
+                    stringBuilder.append("0X" + hexString);
+
+                }
+                result_disPlay.setText(stringBuilder.toString());
+            }
+        });
+        btnShift.addActionListener(e -> {
+            initNum = result_disPlay.getText();
+            isShift = true;
+            result_disPlay.setText("");
+            stringBuilder.delete(0,stringBuilder.length());
         });
     }
 
@@ -484,7 +608,7 @@ public class CalDisplay extends JFrame {
         numBtn.add(btnD);
         numBtn.add(btnE);
         numBtn.add(btnF);
-        for (int i = 10; i <16 ; i++) {
+        for (int i = 10; i < 16; i++) {
             numBtn.get(i).setEnabled(false);
         }
     }
