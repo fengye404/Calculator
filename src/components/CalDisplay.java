@@ -34,8 +34,8 @@ public class CalDisplay extends JFrame {
     //记录拖动窗口时鼠标的位置
     private int xOld, yOld;
     //关闭窗口，最小化窗口
-    Icon min = new ImageIcon("D:\\code\\javacode\\fengye404Calculator\\src\\Min.png");
-    Icon close = new ImageIcon("D:\\code\\javacode\\fengye404Calculator\\src\\Close.png");
+    Icon min = new ImageIcon("src/picture/Min.png");
+    Icon close = new ImageIcon("src/picture/Close.png");
     JButton btnClose = new JButton(close);
     JButton btnMin = new JButton(min);
 
