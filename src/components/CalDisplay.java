@@ -364,6 +364,10 @@ public class CalDisplay extends JFrame {
                 isShift=false;
             }
 
+            //关闭A-F
+            for (int i = 10; i < 16; i++) {
+                numBtn.get(i).setEnabled(false);
+            }
         });
 
         /**
@@ -384,6 +388,12 @@ public class CalDisplay extends JFrame {
             }
             stringBuilder.delete(0, stringBuilder.length());
             result_disPlay.setText(stringBuilder.toString());
+
+
+            //关闭A-F
+            for (int i = 10; i < 16; i++) {
+                numBtn.get(i).setEnabled(false);
+            }
         });
 
         /**
