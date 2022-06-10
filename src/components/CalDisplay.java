@@ -379,6 +379,7 @@ public class CalDisplay extends JFrame {
         btnCE.addActionListener(e -> {
             if (stringBuilder.length() == 0) {
                 result_disPlay.setText("");
+
                 return;
             }
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
@@ -387,6 +388,9 @@ public class CalDisplay extends JFrame {
         btnClear.addActionListener(e -> {
             if (stringBuilder.length() == 0) {
                 result_disPlay.setText("");
+                for (int i = 10; i < 16; i++) {
+                    numBtn.get(i).setEnabled(false);
+                }
                 return;
             }
             stringBuilder.delete(0, stringBuilder.length());
