@@ -31,7 +31,7 @@ public class NumberUtil {
      * @return
      */
     public static Integer getDecInverse(Integer i) {
-        if (i > 0) {
+        if (i >= 0) {
             return i;
         } else {
             String binaryString = getBinaryString(i);
@@ -39,6 +39,32 @@ public class NumberUtil {
             sb.append(1);
             for (int j = 1; j < binaryString.length(); j++) {
                 sb.append(binaryString.charAt(j) == '0' ? '1' : '0');
+            }
+            return binaryToDec(sb.toString(), true);
+        }
+    }
+    /**
+     * 获取10进制数的补码     *
+     * @param i
+     * @return
+     */
+    public static Integer getDecComplement(Integer i) {
+        if (i >= 0) {
+            return i;
+        } else {
+            String binaryString = getBinaryString(i);
+            StringBuilder sb = new StringBuilder();
+            sb.append(1);
+            for (int j = 1; j < binaryString.length(); j++) {
+                sb.append(binaryString.charAt(j) == '0' ? '1' : '0');
+            }
+            for (int j = sb.length()-1; j >=0; j--) {
+                if(sb.charAt(j)=='0'){
+                    sb.setCharAt(j,'1');
+                    break;
+                }else if(sb.charAt(j)=='1'){
+                    sb.setCharAt(j,'0');
+                }
             }
             return binaryToDec(sb.toString(), true);
         }

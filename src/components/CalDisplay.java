@@ -539,11 +539,11 @@ public class CalDisplay extends JFrame {
                     result_disPlay.setText("请输入正确的数");
                     return;
                 }
-                Integer decInverse = NumberUtil.getDecInverse(i);
+                Integer decInverse = NumberUtil.getDecComplement(i);
 
-                if (decInverse < 0) {
+                /*if (decInverse <= 0) {
                     decInverse--;
-                }
+                }*/
                 stringBuilder.append(decInverse);
                 result_disPlay.setText(stringBuilder.toString());
             } else {
@@ -562,9 +562,9 @@ public class CalDisplay extends JFrame {
                     result_disPlay.setText("请输入正确的数");
                     return;
                 }
-                Integer decInverse = NumberUtil.getDecInverse(i);
+                Integer decInverse = NumberUtil.getDecComplement(i);
                 if (decInverse < 0) {
-                    String hexString = Integer.toHexString(Math.abs(decInverse) + 1).toUpperCase();
+                    String hexString = Integer.toHexString(Math.abs(decInverse)).toUpperCase();
                     stringBuilder.append("-0X" + hexString);
                 } else {
                     String hexString = Integer.toHexString(decInverse).toUpperCase();
@@ -579,6 +579,8 @@ public class CalDisplay extends JFrame {
             isShift = true;
             result_disPlay.setText("");
             stringBuilder.delete(0,stringBuilder.length());
+            jLabel1.setForeground(new Color(0, 0, 0));
+            jLabel2.setForeground(new Color(255, 255, 255));
         });
     }
 
