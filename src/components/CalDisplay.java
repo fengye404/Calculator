@@ -362,6 +362,9 @@ public class CalDisplay extends JFrame {
 
                result_disPlay.setText(Integer.toHexString(ExpressionUtil.calShiftSequence(i1,i2)) );
                 isShift=false;
+                //将进制重新显示为10进制
+                jLabel1.setForeground(new Color(255, 255, 255));
+                jLabel2.setForeground(new Color(0, 0, 0));
             }
 
             //关闭A-F
