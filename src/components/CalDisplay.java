@@ -34,8 +34,8 @@ public class CalDisplay extends JFrame {
     //记录拖动窗口时鼠标的位置
     private int xOld, yOld;
     //关闭窗口，最小化窗口
-    Icon min = new ImageIcon("src/picture/Min.png");
-    Icon close = new ImageIcon("src/picture/Close.png");
+    Icon min = new ImageIcon(getClass().getResource("/picture/Min.png"));
+    Icon close = new ImageIcon(getClass().getResource("/picture/Close.png"));
     JButton btnClose = new JButton(close);
     JButton btnMin = new JButton(min);
 
@@ -377,7 +377,7 @@ public class CalDisplay extends JFrame {
                 }
 
 
-                result_disPlay.setText("0X"+Long.toHexString(ExpressionUtil.calShiftSequence(i1, i2)));
+                result_disPlay.setText("0X" + Long.toHexString(ExpressionUtil.calShiftSequence(i1, i2)));
                 isShift = false;
 
             }
@@ -615,9 +615,9 @@ public class CalDisplay extends JFrame {
             isShift = true;
             result_disPlay.setText("");
             stringBuilder.delete(0, stringBuilder.length());
-            if(!initNum.startsWith("0X")&&!initNum.startsWith("-0X")){
+            if (!initNum.startsWith("0X") && !initNum.startsWith("-0X")) {
                 result_disPlay.setText("被移位的数出错");
-                isShift=false;
+                isShift = false;
                 return;
             }
             changeAdvance(16);
