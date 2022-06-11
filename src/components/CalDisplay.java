@@ -319,7 +319,15 @@ public class CalDisplay extends JFrame {
                 int i1, i2;
                 String shiftNum = stringBuilder.toString();//将移动位数拿到手
                 stringBuilder.delete(0, stringBuilder.length());
-                if((shiftNum.startsWith("0X")||shiftNum.startsWith("-0X"))&&(initNum.startsWith("0X")||initNum.startsWith("-0X"))){
+                if (!initNum.startsWith("0X") && !initNum.startsWith("-0X")) {
+                    result_disPlay.setText("被移位的数请输入正确的十六进制数");
+                    isShift=false;
+                    return;
+                } else if (!shiftNum.startsWith("0X") && !shiftNum.startsWith("-0X")) {
+                    result_disPlay.setText("移位数请输入正确的十六进制数");
+                    isShift=false;
+                    return;
+                } else {
                     if (shiftNum.charAt(0) == '-') { //
                         StringBuilder temp = new StringBuilder(shiftNum);
                         temp.delete(1, 3);
@@ -327,16 +335,17 @@ public class CalDisplay extends JFrame {
                         try {
                             i2 = Integer.parseInt(shiftNum, 16);
                         } catch (NumberFormatException ex) {
-                            result_disPlay.setText("请输入正确的十六进制数");
+                            result_disPlay.setText("移位数请输入正确的十六进制数");
+                            isShift=false;
                             return;
                         }
-                    }
-                    else{
-                        shiftNum=shiftNum.substring(2).toLowerCase();
-                        try{
-                            i2=Integer.parseInt(shiftNum,16);
-                        }catch (NumberFormatException ex){
-                            result_disPlay.setText("请输入正确的十六进制数");
+                    } else {
+                        shiftNum = shiftNum.substring(2).toLowerCase();
+                        try {
+                            i2 = Integer.parseInt(shiftNum, 16);
+                        } catch (NumberFormatException ex) {
+                            result_disPlay.setText("移位数请输入正确的十六进制数");
+                            isShift=false;
                             return;
                         }
                     }
@@ -349,28 +358,25 @@ public class CalDisplay extends JFrame {
                         try {
                             i1 = Integer.parseInt(initNum, 16);
                         } catch (NumberFormatException ex) {
-                            result_disPlay.setText("请输入正确的十六进制数");
+                            result_disPlay.setText("被移位的数请输入正确的十六进制数");
+                            isShift=false;
+                            return;
+                        }
+                    } else {
+                        initNum = initNum.substring(2).toLowerCase();
+                        try {
+                            i1 = Integer.parseUnsignedInt(initNum, 16);
+                        } catch (NumberFormatException ex) {
+                            result_disPlay.setText("被移位的数请输入正确的十六进制数");
+                            isShift=false;
                             return;
                         }
                     }
-                    else{
-                        initNum=initNum.substring(2).toLowerCase();
-                        try{
-                            i1=Integer.parseUnsignedInt(initNum,16);
-                        }catch (NumberFormatException ex){
-                            result_disPlay.setText("请输入正确的十六进制数");
-                            return;
-                        }
-                    }
-                }else{
-                    result_disPlay.setText("请输入正确的十六进制数");
-                    isShift=false;
-                    return;
                 }
 
 
-               result_disPlay.setText(Integer.toHexString(ExpressionUtil.calShiftSequence(i1,i2)) );
-                isShift=false;
+                result_disPlay.setText(Integer.toHexString(ExpressionUtil.calShiftSequence(i1, i2)));
+                isShift = false;
 
             }
 
@@ -411,7 +417,7 @@ public class CalDisplay extends JFrame {
                 numBtn.get(i).setEnabled(false);
             }
             //将进制重新显示为10进制
-           changeAdvance(10);
+            changeAdvance(10);
         });
 
         /**
@@ -606,7 +612,7 @@ public class CalDisplay extends JFrame {
             initNum = result_disPlay.getText();
             isShift = true;
             result_disPlay.setText("");
-            stringBuilder.delete(0,stringBuilder.length());
+            stringBuilder.delete(0, stringBuilder.length());
             changeAdvance(16);
         });
     }
