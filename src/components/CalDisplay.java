@@ -319,7 +319,7 @@ public class CalDisplay extends JFrame {
                 long i1, i2;
                 String shiftNum = stringBuilder.toString();//将移动位数拿到手
                 stringBuilder.delete(0, stringBuilder.length());
-                if (!initNum.startsWith("0X") && !initNum.startsWith("-0X")) {
+                if (!shiftNum.startsWith("0X") && !shiftNum.startsWith("-0X")) {
                     result_disPlay.setText("移位的位数出错");
                     isShift = false;
                     return;
@@ -610,7 +610,7 @@ public class CalDisplay extends JFrame {
             result_disPlay.setText("");
             stringBuilder.delete(0, stringBuilder.length());
             if(!initNum.startsWith("0X")&&!initNum.startsWith("-0X")){
-                result_disPlay.setText("移位的位数出错");
+                result_disPlay.setText("被移位的数出错");
                 isShift=false;
                 return;
             }
