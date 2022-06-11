@@ -301,6 +301,7 @@ public class CalDisplay extends JFrame {
             for (int i = 10; i < 16; i++) {
                 numBtn.get(i).setEnabled(true);
             }
+            changeAdvance(16);
         });
 
         /**
@@ -313,6 +314,7 @@ public class CalDisplay extends JFrame {
                 Double expression = ExpressionUtil.getExpression(exp);
                 stringBuilder.append(expression);
                 result_disPlay.setText(expression.toString());
+                changeAdvance(10);
             } else {
                 int i1, i2;
                 String shiftNum = stringBuilder.toString();//将移动位数拿到手
@@ -362,9 +364,7 @@ public class CalDisplay extends JFrame {
 
                result_disPlay.setText(Integer.toHexString(ExpressionUtil.calShiftSequence(i1,i2)) );
                 isShift=false;
-                //将进制重新显示为10进制
-                jLabel1.setForeground(new Color(255, 255, 255));
-                jLabel2.setForeground(new Color(0, 0, 0));
+
             }
 
             //关闭A-F
@@ -391,6 +391,8 @@ public class CalDisplay extends JFrame {
                 for (int i = 10; i < 16; i++) {
                     numBtn.get(i).setEnabled(false);
                 }
+                //将进制重新显示为10进制
+                changeAdvance(10);
                 return;
             }
             stringBuilder.delete(0, stringBuilder.length());
@@ -401,6 +403,8 @@ public class CalDisplay extends JFrame {
             for (int i = 10; i < 16; i++) {
                 numBtn.get(i).setEnabled(false);
             }
+            //将进制重新显示为10进制
+           changeAdvance(10);
         });
 
         /**
@@ -556,12 +560,12 @@ public class CalDisplay extends JFrame {
                     result_disPlay.setText("请输入正确的数");
                     return;
                 }
-                Integer decInverse = NumberUtil.getDecComplement(i);
+                Integer decComplement = NumberUtil.getDecComplement(i);
 
                 /*if (decInverse <= 0) {
                     decInverse--;
                 }*/
-                stringBuilder.append(decInverse);
+                stringBuilder.append(decComplement);
                 result_disPlay.setText(stringBuilder.toString());
             } else {
                 if (s.charAt(0) == '-') {
@@ -579,12 +583,12 @@ public class CalDisplay extends JFrame {
                     result_disPlay.setText("请输入正确的数");
                     return;
                 }
-                Integer decInverse = NumberUtil.getDecComplement(i);
-                if (decInverse < 0) {
-                    String hexString = Integer.toHexString(Math.abs(decInverse)).toUpperCase();
+                Integer decComplement = NumberUtil.getDecComplement(i);
+                if (decComplement < 0) {
+                    String hexString = Integer.toHexString(Math.abs(decComplement)).toUpperCase();
                     stringBuilder.append("-0X" + hexString);
                 } else {
-                    String hexString = Integer.toHexString(decInverse).toUpperCase();
+                    String hexString = Integer.toHexString(decComplement).toUpperCase();
                     stringBuilder.append("0X" + hexString);
 
                 }
@@ -596,8 +600,7 @@ public class CalDisplay extends JFrame {
             isShift = true;
             result_disPlay.setText("");
             stringBuilder.delete(0,stringBuilder.length());
-            jLabel1.setForeground(new Color(0, 0, 0));
-            jLabel2.setForeground(new Color(255, 255, 255));
+            changeAdvance(16);
         });
     }
 
@@ -653,9 +656,13 @@ public class CalDisplay extends JFrame {
                 for (int i = 10; i < 16; i++) {
                     numBtn.get(i).setEnabled(false);
                 }
+                //将进制重新显示为10进制
+                changeAdvance(10);
             }
             stringBuilder.append(buttonText);
             result_disPlay.setText(stringBuilder.toString());
+
+
         }
     }
 
