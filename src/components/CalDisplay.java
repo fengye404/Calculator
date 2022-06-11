@@ -311,7 +311,13 @@ public class CalDisplay extends JFrame {
             if (isShift == false) {
                 String exp = stringBuilder.toString();
                 stringBuilder.delete(0, stringBuilder.length());
-                Double expression = ExpressionUtil.getExpression(exp);
+                Double expression = null;
+                try {
+                    expression = ExpressionUtil.getExpression(exp);
+                } catch (Exception ex) {
+                    result_disPlay.setText("计算错误");
+                    return;
+                }
                 stringBuilder.append(expression);
                 result_disPlay.setText(expression.toString());
                 changeAdvance(10);
