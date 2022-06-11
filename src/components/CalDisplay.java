@@ -319,48 +319,55 @@ public class CalDisplay extends JFrame {
                 int i1, i2;
                 String shiftNum = stringBuilder.toString();//将移动位数拿到手
                 stringBuilder.delete(0, stringBuilder.length());
-                if (shiftNum.charAt(0) == '-') { //
-                    StringBuilder temp = new StringBuilder(shiftNum);
-                    temp.delete(1, 3);
-                    shiftNum = temp.toString().toLowerCase();
-                    try {
-                        i2 = Integer.parseInt(shiftNum, 16);
-                    } catch (NumberFormatException ex) {
-                        result_disPlay.setText("请输入正确的十六进制数");
-                        return;
+                if((shiftNum.startsWith("0X")||shiftNum.startsWith("-0X"))&&(initNum.startsWith("0X")||initNum.startsWith("-0X"))){
+                    if (shiftNum.charAt(0) == '-') { //
+                        StringBuilder temp = new StringBuilder(shiftNum);
+                        temp.delete(1, 3);
+                        shiftNum = temp.toString().toLowerCase();
+                        try {
+                            i2 = Integer.parseInt(shiftNum, 16);
+                        } catch (NumberFormatException ex) {
+                            result_disPlay.setText("请输入正确的十六进制数");
+                            return;
+                        }
                     }
-                }
-                else{
-                    shiftNum=shiftNum.substring(2).toLowerCase();
-                    try{
-                        i2=Integer.parseInt(shiftNum,16);
-                    }catch (NumberFormatException ex){
-                        result_disPlay.setText("请输入正确的十六进制数");
-                        return;
+                    else{
+                        shiftNum=shiftNum.substring(2).toLowerCase();
+                        try{
+                            i2=Integer.parseInt(shiftNum,16);
+                        }catch (NumberFormatException ex){
+                            result_disPlay.setText("请输入正确的十六进制数");
+                            return;
+                        }
                     }
-                }
 
 
-                if (initNum.charAt(0) == '-') { //
-                    StringBuilder temp = new StringBuilder(initNum);
-                    temp.delete(1, 3);
-                    initNum = temp.toString().toLowerCase();
-                    try {
-                        i1 = Integer.parseInt(initNum, 16);
-                    } catch (NumberFormatException ex) {
-                        result_disPlay.setText("请输入正确的十六进制数");
-                        return;
+                    if (initNum.charAt(0) == '-') { //
+                        StringBuilder temp = new StringBuilder(initNum);
+                        temp.delete(1, 3);
+                        initNum = temp.toString().toLowerCase();
+                        try {
+                            i1 = Integer.parseInt(initNum, 16);
+                        } catch (NumberFormatException ex) {
+                            result_disPlay.setText("请输入正确的十六进制数");
+                            return;
+                        }
                     }
-                }
-                else{
-                    initNum=initNum.substring(2).toLowerCase();
-                    try{
-                        i1=Integer.parseUnsignedInt(initNum,16);
-                    }catch (NumberFormatException ex){
-                        result_disPlay.setText("请输入正确的十六进制数");
-                        return;
+                    else{
+                        initNum=initNum.substring(2).toLowerCase();
+                        try{
+                            i1=Integer.parseUnsignedInt(initNum,16);
+                        }catch (NumberFormatException ex){
+                            result_disPlay.setText("请输入正确的十六进制数");
+                            return;
+                        }
                     }
+                }else{
+                    result_disPlay.setText("请输入正确的十六进制数");
+                    isShift=false;
+                    return;
                 }
+
 
                result_disPlay.setText(Integer.toHexString(ExpressionUtil.calShiftSequence(i1,i2)) );
                 isShift=false;
